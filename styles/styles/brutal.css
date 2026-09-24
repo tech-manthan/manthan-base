@@ -29,7 +29,7 @@
     --mn-popover-shadow: 6px 6px 0 0 var(--mn-ink);
     --mn-control-shadow: 3px 3px 0 0 var(--mn-ink);
     --mn-inset-shadow: 0 0 #0000;
-    --mn-track: var(--mn-surface);
+    --mn-track: var(--mn-surface-3);
     --mn-thumb: var(--mn-surface);
     --mn-thumb-shadow: 2px 2px 0 0 var(--mn-ink);
     --mn-btn-shadow: 4px 4px 0 0 var(--mn-ink);
@@ -79,6 +79,9 @@
   [data-mn-style='brutal'] .mn-card.mn-card-interactive:hover {
     translate: -3px -3px;
     box-shadow: 8px 8px 0 0 var(--mn-ink);
+  }
+  [data-mn-style='brutal'] :is(.mn-checkbox, .mn-radio) > span {
+    box-shadow: 2px 2px 0 0 var(--mn-ink);
   }
   [data-mn-style='brutal'] .mn-slider::-webkit-slider-thumb {
     border-color: var(--mn-ink);
