@@ -95,7 +95,7 @@ const themeButtons: Array<[ThemeMode, IconNode]> = [
 
 function header() {
   const t = tabs({ variant: 'segmented', size: 'sm' });
-  return `<header class="sticky top-0 z-40 border-b-mn border-border bg-bg/80 backdrop-blur-xl">
+  return `<header class="sticky top-[env(safe-area-inset-top,0px)] z-40 border-b-mn border-border bg-bg/80 backdrop-blur-xl">
     <div class="mx-auto flex max-w-7xl flex-wrap items-center gap-3 px-4 py-3 sm:px-6">
       <a href="#top" class="flex items-center gap-2 font-semibold me-auto">
         <span class="inline-flex size-8 items-center justify-center rounded-control bg-accent-9 text-accent-contrast shadow-btn">${icon(I.Sparkles, 'size-4')}</span>
@@ -567,7 +567,8 @@ hue.addEventListener('input', () => root.style.setProperty('--mn-primary-h', hue
 
 const initialStyle = (params.get('style') ?? readStored('mn-style') ?? 'default') as DesignStyle;
 setStyle(designStyles.some((s) => s.id === initialStyle) ? initialStyle : 'default');
-setMode((params.get('theme') ?? readStored('mn-theme') ?? 'light') as ThemeMode);
+const viewerTheme = root.getAttribute('data-theme');
+setMode((params.get('theme') ?? readStored('mn-theme') ?? (viewerTheme === 'dark' || viewerTheme === 'light' ? viewerTheme : 'system')) as ThemeMode);
 
 // Toast demos
 document.addEventListener('click', (event) => {

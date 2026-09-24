@@ -2,3 +2,9 @@
 @import '../styles/theme.css';
 @source '../src';
 @source './';
+
+/* The root element paints each style's canvas; keep body see-through so it shows. */
+body {
+  background: none;
+  margin: 0;
+}
