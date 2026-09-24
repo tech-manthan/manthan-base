@@ -1,0 +1,68 @@
+/* Glassmorphism — frosted translucent layers over a vivid mesh gradient (inspired by Apple visionOS / "liquid glass"). */
+@layer base {
+  [data-mn-style='glass'] {
+    --mn-gray-h: 280;
+    --mn-gray-c: 0.02;
+    --mn-bg: light-dark(oklch(0.93 0.03 285), oklch(0.16 0.04 285));
+    --mn-fg: light-dark(oklch(0.22 0.04 285), oklch(0.97 0.01 285));
+    --mn-fg-muted: light-dark(oklch(0.4 0.04 285), oklch(0.82 0.02 285));
+    --mn-fg-subtle: light-dark(oklch(0.52 0.03 285), oklch(0.68 0.02 285));
+    --mn-surface: light-dark(oklch(1 0 0 / 0.42), oklch(0.3 0.03 285 / 0.38));
+    --mn-surface-2: light-dark(oklch(1 0 0 / 0.3), oklch(1 0 0 / 0.06));
+    --mn-surface-3: light-dark(oklch(1 0 0 / 0.5), oklch(1 0 0 / 0.1));
+    --mn-border: light-dark(oklch(0.4 0.06 285 / 0.14), oklch(1 0 0 / 0.12));
+    --mn-surface-border: light-dark(oklch(1 0 0 / 0.7), oklch(1 0 0 / 0.16));
+    --mn-surface-shadow: 0 8px 32px light-dark(oklch(0.35 0.12 285 / 0.14), oklch(0 0 0 / 0.35)),
+      inset 0 1px 0 light-dark(oklch(1 0 0 / 0.75), oklch(1 0 0 / 0.12));
+    --mn-surface-blur: 18px;
+    --mn-popover: light-dark(oklch(1 0 0 / 0.62), oklch(0.26 0.03 285 / 0.62));
+    --mn-popover-border: var(--mn-surface-border);
+    --mn-popover-shadow: 0 24px 60px -16px light-dark(oklch(0.35 0.12 285 / 0.32), oklch(0 0 0 / 0.6)),
+      inset 0 1px 0 light-dark(oklch(1 0 0 / 0.75), oklch(1 0 0 / 0.12));
+    --mn-control: light-dark(oklch(1 0 0 / 0.45), oklch(1 0 0 / 0.07));
+    --mn-control-border: light-dark(oklch(1 0 0 / 0.75), oklch(1 0 0 / 0.18));
+    --mn-control-shadow: inset 0 1px 2px light-dark(oklch(0.3 0.06 285 / 0.08), oklch(0 0 0 / 0.2));
+    --mn-track: light-dark(oklch(0.3 0.06 285 / 0.14), oklch(1 0 0 / 0.14));
+    --mn-tooltip: light-dark(oklch(0.25 0.04 285 / 0.82), oklch(1 0 0 / 0.85));
+    --mn-tooltip-fg: light-dark(oklch(0.99 0 0), oklch(0.2 0.03 285));
+    --mn-overlay: light-dark(oklch(0.35 0.06 285 / 0.18), oklch(0 0 0 / 0.4));
+    --mn-overlay-blur: 10px;
+    --mn-radius-control: 0.8rem;
+    --mn-radius-surface: 1.35rem;
+    --mn-radius-item: 0.55rem;
+    --mn-btn-shadow: inset 0 1px 0 oklch(1 0 0 / 0.35);
+    --mn-duration: 200ms;
+
+    background-image:
+      radial-gradient(at 12% 18%, light-dark(oklch(0.78 0.16 340 / 0.6), oklch(0.45 0.2 340 / 0.55)) 0, transparent 45%),
+      radial-gradient(at 88% 10%, light-dark(oklch(0.8 0.14 225 / 0.65), oklch(0.45 0.17 240 / 0.55)) 0, transparent 45%),
+      radial-gradient(at 72% 88%, light-dark(oklch(0.84 0.15 160 / 0.5), oklch(0.42 0.14 170 / 0.45)) 0, transparent 45%),
+      radial-gradient(at 18% 92%, light-dark(oklch(0.76 0.17 285 / 0.55), oklch(0.4 0.2 285 / 0.5)) 0, transparent 50%);
+    background-attachment: fixed;
+  }
+}
+
+@layer utilities {
+  [data-mn-style='glass'] .mn-btn.mn-btn-solid {
+    background-image: linear-gradient(to bottom, oklch(1 0 0 / 0.24), oklch(1 0 0 / 0));
+    box-shadow:
+      0 8px 24px -8px color-mix(in oklch, var(--mn-accent-9) 75%, transparent),
+      inset 0 1px 0 oklch(1 0 0 / 0.4);
+  }
+  [data-mn-style='glass'] .mn-btn:is(.mn-btn-soft, .mn-btn-surface, .mn-btn-outline),
+  [data-mn-style='glass'] .mn-badge,
+  [data-mn-style='glass'] .mn-alert {
+    backdrop-filter: blur(12px) saturate(1.4);
+  }
+  [data-mn-style='glass'] :is(.mn-btn.mn-btn-soft, .mn-badge.mn-badge-soft, .mn-alert.mn-alert-soft) {
+    background-color: color-mix(in oklch, var(--mn-accent-9) 16%, transparent);
+    border-color: color-mix(in oklch, var(--mn-accent-9) 22%, transparent);
+  }
+  [data-mn-style='glass'] .mn-btn.mn-btn-soft:hover {
+    background-color: color-mix(in oklch, var(--mn-accent-9) 26%, transparent);
+  }
+  [data-mn-style='glass'] .mn-btn.mn-btn-surface {
+    background-color: var(--mn-surface);
+    border-color: var(--mn-surface-border);
+  }
+}

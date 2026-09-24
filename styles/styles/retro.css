@@ -1,0 +1,64 @@
+/* Retro 8-bit — pixel bevels, square corners, stepped motion (inspired by NES.css and early game UIs). */
+@layer base {
+  [data-mn-style='retro'] {
+    --mn-gray-h: 260;
+    --mn-gray-c: 0.01;
+    --mn-ink: light-dark(oklch(0.16 0 0), oklch(0.94 0 0));
+    --mn-primary-h: 245;
+    --mn-primary-c: 0.16;
+    --mn-solid-l: 0.62;
+    --mn-solid-hover-l: 0.57;
+    --mn-solid-l-dark: 0.62;
+    --mn-solid-hover-l-dark: 0.67;
+    --mn-bg: light-dark(oklch(0.965 0.006 90), oklch(0.19 0.012 265));
+    --mn-surface: light-dark(oklch(1 0 0), oklch(0.24 0.012 265));
+    --mn-surface-2: light-dark(oklch(0.94 0.006 90), oklch(0.27 0.012 265));
+    --mn-surface-3: light-dark(oklch(0.9 0.008 90), oklch(0.31 0.012 265));
+    --mn-edge: var(--mn-ink);
+    --mn-border: var(--mn-ink);
+    --mn-border-strong: var(--mn-ink);
+    --mn-surface-border: var(--mn-ink);
+    --mn-popover-border: var(--mn-ink);
+    --mn-control-border: var(--mn-ink);
+    --mn-border-width: 3px;
+    --mn-surface-shadow: inset -4px -4px 0 0 light-dark(oklch(0 0 0 / 0.1), oklch(0 0 0 / 0.3));
+    --mn-popover-shadow: 6px 6px 0 0 light-dark(oklch(0 0 0 / 0.25), oklch(0 0 0 / 0.6));
+    --mn-control-shadow: inset 3px 3px 0 0 light-dark(oklch(0 0 0 / 0.08), oklch(0 0 0 / 0.3));
+    --mn-inset-shadow: inset 2px 2px 0 0 light-dark(oklch(0 0 0 / 0.15), oklch(0 0 0 / 0.4));
+    --mn-thumb-shadow: inset -2px -2px 0 0 oklch(0 0 0 / 0.2);
+    --mn-btn-shadow: inset -4px -4px 0 0 oklch(0 0 0 / 0.28), inset 4px 4px 0 0 oklch(1 0 0 / 0.3);
+    --mn-btn-shadow-hover: inset -6px -6px 0 0 oklch(0 0 0 / 0.28), inset 4px 4px 0 0 oklch(1 0 0 / 0.3);
+    --mn-btn-shadow-active: inset 4px 4px 0 0 oklch(0 0 0 / 0.28);
+    --mn-press-scale: 1;
+    --mn-tooltip: var(--mn-ink);
+    --mn-tooltip-fg: light-dark(oklch(0.99 0 0), oklch(0.16 0 0));
+    --mn-overlay: light-dark(oklch(0.2 0 0 / 0.5), oklch(0 0 0 / 0.7));
+    --mn-overlay-blur: 0px;
+    --mn-radius-control: 0;
+    --mn-radius-surface: 0;
+    --mn-radius-item: 0;
+    --mn-radius-badge: 0;
+    --mn-radius-check: 0;
+    --mn-radius-thumb: 0;
+    --mn-font-sans: 'VT323', ui-monospace, 'Cascadia Mono', Menlo, monospace;
+    --mn-font-heading: 'Press Start 2P', ui-monospace, monospace;
+    --mn-font-control: 'Silkscreen', 'Press Start 2P', ui-monospace, monospace;
+    --mn-btn-weight: 400;
+    --mn-btn-transform: uppercase;
+    --mn-btn-tracking: 0.04em;
+    --mn-heading-weight: 400;
+    --mn-heading-tracking: 0;
+    --mn-duration: 120ms;
+    --mn-ease: steps(3, end);
+    font-size: 1.125rem;
+  }
+}
+
+@layer utilities {
+  [data-mn-style='retro'] .mn-progress-indicator {
+    background-image: repeating-linear-gradient(90deg, transparent 0 10px, var(--mn-surface) 10px 13px);
+  }
+  [data-mn-style='retro'] :is(.mn-badge, .mn-kbd, .mn-tooltip, .mn-alert) {
+    border-color: var(--mn-ink);
+  }
+}

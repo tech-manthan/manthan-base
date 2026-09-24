@@ -1,0 +1,131 @@
+/*
+ * Component CSS that Tailwind utilities can't express cleanly
+ * (vendor pseudo-elements, ::picker, ::details-content).
+ * Everything else lives in the TypeScript recipes.
+ */
+@layer components {
+  /* ── Slider (native <input type="range">) ── */
+  .mn-slider {
+    --mn-slider-track: 0.375rem;
+    --mn-slider-thumb: 1.125rem;
+    --mn-fill: 50%;
+    appearance: none;
+    width: 100%;
+    height: var(--mn-slider-thumb);
+    margin: 0;
+    background: transparent;
+    cursor: pointer;
+  }
+  .mn-slider:focus-visible {
+    outline: 2px solid var(--mn-accent-8);
+    outline-offset: 4px;
+    border-radius: var(--mn-radius-item);
+  }
+  .mn-slider:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+  .mn-slider::-webkit-slider-runnable-track {
+    height: var(--mn-slider-track);
+    border-radius: var(--mn-radius-thumb);
+    background: linear-gradient(
+      to var(--mn-fill-dir, right),
+      var(--mn-accent-9) var(--mn-fill),
+      var(--mn-track) var(--mn-fill)
+    );
+    box-shadow: var(--mn-inset-shadow);
+  }
+  .mn-slider:dir(rtl) {
+    --mn-fill-dir: left;
+  }
+  .mn-slider::-webkit-slider-thumb {
+    appearance: none;
+    box-sizing: border-box;
+    width: var(--mn-slider-thumb);
+    height: var(--mn-slider-thumb);
+    margin-top: calc((var(--mn-slider-track) - var(--mn-slider-thumb)) / 2);
+    border: 2px solid var(--mn-accent-9);
+    border-radius: var(--mn-radius-thumb);
+    background: var(--mn-thumb);
+    box-shadow: var(--mn-thumb-shadow);
+    transition: scale var(--mn-duration) var(--mn-ease);
+  }
+  .mn-slider::-moz-range-track {
+    height: var(--mn-slider-track);
+    border-radius: var(--mn-radius-thumb);
+    background: var(--mn-track);
+    box-shadow: var(--mn-inset-shadow);
+  }
+  .mn-slider::-moz-range-progress {
+    height: var(--mn-slider-track);
+    border-radius: var(--mn-radius-thumb);
+    background: var(--mn-accent-9);
+  }
+  .mn-slider::-moz-range-thumb {
+    box-sizing: border-box;
+    width: var(--mn-slider-thumb);
+    height: var(--mn-slider-thumb);
+    border: 2px solid var(--mn-accent-9);
+    border-radius: var(--mn-radius-thumb);
+    background: var(--mn-thumb);
+    box-shadow: var(--mn-thumb-shadow);
+    transition: scale var(--mn-duration) var(--mn-ease);
+  }
+  .mn-slider:active::-webkit-slider-thumb {
+    scale: 1.12;
+  }
+  .mn-slider:active::-moz-range-thumb {
+    scale: 1.12;
+  }
+
+  /* ── Select: progressive enhancement to a fully styled picker ── */
+  @supports (appearance: base-select) {
+    .mn-select,
+    .mn-select::picker(select) {
+      appearance: base-select;
+    }
+    .mn-select::picker-icon {
+      display: none;
+    }
+    .mn-select::picker(select) {
+      margin-block: 0.375rem;
+      padding: 0.25rem;
+      border: var(--mn-border-width) solid var(--mn-popover-border);
+      border-radius: var(--mn-radius-surface);
+      background: var(--mn-popover);
+      color: var(--mn-fg);
+      box-shadow: var(--mn-popover-shadow);
+      backdrop-filter: blur(var(--mn-surface-blur));
+    }
+    .mn-select option {
+      display: flex;
+      gap: 0.5rem;
+      padding: 0.4rem 0.5rem;
+      border-radius: var(--mn-radius-item);
+      font-size: 0.875rem;
+      cursor: default;
+    }
+    .mn-select option:is(:hover, :focus-visible) {
+      outline: none;
+      background: var(--mn-accent-3);
+      color: var(--mn-accent-12);
+    }
+    .mn-select option::checkmark {
+      order: 1;
+      margin-inline-start: auto;
+      color: var(--mn-accent-11);
+    }
+  }
+
+  /* ── Accordion (<details name>) height animation where supported ── */
+  .mn-accordion-item::details-content {
+    block-size: 0;
+    overflow-y: clip;
+    transition:
+      block-size calc(var(--mn-duration) * 1.6) var(--mn-ease),
+      content-visibility calc(var(--mn-duration) * 1.6) allow-discrete;
+  }
+  .mn-accordion-item[open]::details-content {
+    block-size: auto;
+  }
+}

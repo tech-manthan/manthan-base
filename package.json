@@ -1,0 +1,44 @@
+{
+  "name": "@manthan/base",
+  "version": "0.1.0",
+  "description": "Manthan UI core: Tailwind v4 theme, 11 design styles, component class recipes and framework-agnostic behaviours.",
+  "license": "MIT",
+  "type": "module",
+  "sideEffects": ["*.css"],
+  "repository": { "type": "git", "url": "https://github.com/tech-manthan/manthan-base" },
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": { "types": "./dist/index.d.ts", "import": "./dist/index.js" },
+    "./dom": { "types": "./dist/dom/index.d.ts", "import": "./dist/dom/index.js" },
+    "./theme.css": "./styles/theme.css",
+    "./styles/*": "./styles/*",
+    "./package.json": "./package.json"
+  },
+  "files": ["dist", "styles"],
+  "scripts": {
+    "build": "tsup",
+    "dev": "vite showcase",
+    "build:showcase": "vite build showcase",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "peerDependencies": {
+    "@manthan/icons": "^0.1.0",
+    "tailwindcss": "^4.1.0"
+  },
+  "peerDependenciesMeta": {
+    "@manthan/icons": { "optional": true }
+  },
+  "devDependencies": {
+    "@manthan/icons": "file:../manthan-icons",
+    "@tailwindcss/vite": "^4.3.3",
+    "jsdom": "^30.1.1",
+    "tailwindcss": "^4.3.3",
+    "tsup": "^8.5.1",
+    "typescript": "~6.0.3",
+    "vite": "^8.3.1",
+    "vitest": "^5.0.1"
+  }
+}

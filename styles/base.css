@@ -1,0 +1,54 @@
+@layer base {
+  /* Themes: tokens are written with light-dark(), so a theme is just a color-scheme. */
+  :root {
+    color-scheme: light;
+  }
+  [data-mn-theme='light'] {
+    color-scheme: light;
+  }
+  [data-mn-theme='dark'] {
+    color-scheme: dark;
+  }
+  [data-mn-theme='system'] {
+    color-scheme: light dark;
+  }
+
+  /* Every scope paints its own canvas so styles can be nested and compared. */
+  :root,
+  [data-mn-style],
+  [data-mn-theme] {
+    background-color: var(--mn-bg);
+    color: var(--mn-fg);
+    font-family: var(--mn-font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  @supports (interpolate-size: allow-keywords) {
+    :root {
+      interpolate-size: allow-keywords;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    :root,
+    [data-mn-style] {
+      --mn-duration: 1ms;
+    }
+  }
+
+  /*
+   * Closed overlays must stay display:none even when a layout utility (flex, grid)
+   * is applied. !important is safe here: CSS transitions still outrank it, so the
+   * transition-discrete exit animations keep working.
+   */
+  .mn-dialog:not([open]),
+  :is(.mn-popover, .mn-menu, .mn-tooltip)[popover]:not(:popover-open) {
+    display: none !important;
+  }
+
+  /* Modal dialogs lock page scroll without JavaScript. */
+  :root:has(dialog.mn-dialog[open]:modal) {
+    overflow: hidden;
+  }
+}

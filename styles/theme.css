@@ -1,0 +1,204 @@
+/*
+ * @manthan/base — Tailwind CSS v4 theme.
+ *
+ *   @import "tailwindcss";
+ *   @import "@manthan/base/theme.css";
+ *
+ * Scope attributes (on <html> or any container):
+ *   data-mn-theme = light | dark | system
+ *   data-mn-style = default | glass | neu | brutal | material | fluent | clay | retro | neon | minimal | skeuo
+ *
+ * Every component reads semantic tokens (--mn-*) that the design styles
+ * re-map, so one recipe renders correctly in every style and theme.
+ */
+@import './tokens.css';
+@import './base.css';
+@import './components.css';
+@import './styles/glass.css';
+@import './styles/neu.css';
+@import './styles/brutal.css';
+@import './styles/material.css';
+@import './styles/fluent.css';
+@import './styles/clay.css';
+@import './styles/retro.css';
+@import './styles/neon.css';
+@import './styles/minimal.css';
+@import './styles/skeuo.css';
+
+/* Let Tailwind find the class names used by the compiled recipes. */
+@source '../dist';
+
+/* ── Variants ─────────────────────────────────────────────────────────── */
+@custom-variant dark (&:where([data-mn-theme=dark], [data-mn-theme=dark] *));
+@custom-variant glass (&:where([data-mn-style=glass], [data-mn-style=glass] *));
+@custom-variant neu (&:where([data-mn-style=neu], [data-mn-style=neu] *));
+@custom-variant brutal (&:where([data-mn-style=brutal], [data-mn-style=brutal] *));
+@custom-variant material (&:where([data-mn-style=material], [data-mn-style=material] *));
+@custom-variant fluent (&:where([data-mn-style=fluent], [data-mn-style=fluent] *));
+@custom-variant clay (&:where([data-mn-style=clay], [data-mn-style=clay] *));
+@custom-variant retro (&:where([data-mn-style=retro], [data-mn-style=retro] *));
+@custom-variant neon (&:where([data-mn-style=neon], [data-mn-style=neon] *));
+@custom-variant minimal (&:where([data-mn-style=minimal], [data-mn-style=minimal] *));
+@custom-variant skeuo (&:where([data-mn-style=skeuo], [data-mn-style=skeuo] *));
+
+/* ── Tailwind theme → Manthan tokens ──────────────────────────────────── */
+@theme inline {
+  --color-bg: var(--mn-bg);
+  --color-fg: var(--mn-fg);
+  --color-fg-muted: var(--mn-fg-muted);
+  --color-fg-subtle: var(--mn-fg-subtle);
+  --color-surface: var(--mn-surface);
+  --color-surface-2: var(--mn-surface-2);
+  --color-surface-3: var(--mn-surface-3);
+  --color-surface-border: var(--mn-surface-border);
+  --color-border: var(--mn-border);
+  --color-border-strong: var(--mn-border-strong);
+  --color-edge: var(--mn-edge);
+  --color-overlay: var(--mn-overlay);
+  --color-popover: var(--mn-popover);
+  --color-popover-border: var(--mn-popover-border);
+  --color-control: var(--mn-control);
+  --color-control-border: var(--mn-control-border);
+  --color-track: var(--mn-track);
+  --color-thumb: var(--mn-thumb);
+  --color-tooltip: var(--mn-tooltip);
+  --color-tooltip-fg: var(--mn-tooltip-fg);
+
+  --color-accent-1: var(--mn-accent-1);
+  --color-accent-2: var(--mn-accent-2);
+  --color-accent-3: var(--mn-accent-3);
+  --color-accent-4: var(--mn-accent-4);
+  --color-accent-5: var(--mn-accent-5);
+  --color-accent-6: var(--mn-accent-6);
+  --color-accent-7: var(--mn-accent-7);
+  --color-accent-8: var(--mn-accent-8);
+  --color-accent-9: var(--mn-accent-9);
+  --color-accent-10: var(--mn-accent-10);
+  --color-accent-11: var(--mn-accent-11);
+  --color-accent-12: var(--mn-accent-12);
+  --color-accent-contrast: var(--mn-accent-contrast);
+
+  --color-base-1: var(--mn-base-1);
+  --color-base-2: var(--mn-base-2);
+  --color-base-3: var(--mn-base-3);
+  --color-base-4: var(--mn-base-4);
+  --color-base-5: var(--mn-base-5);
+  --color-base-6: var(--mn-base-6);
+  --color-base-7: var(--mn-base-7);
+  --color-base-8: var(--mn-base-8);
+  --color-base-9: var(--mn-base-9);
+  --color-base-10: var(--mn-base-10);
+  --color-base-11: var(--mn-base-11);
+  --color-base-12: var(--mn-base-12);
+
+  --radius-control: var(--mn-radius-control);
+  --radius-surface: var(--mn-radius-surface);
+  --radius-item: var(--mn-radius-item);
+  --radius-field: var(--mn-radius-field);
+  --radius-badge: var(--mn-radius-badge);
+  --radius-check: var(--mn-radius-check);
+  --radius-thumb: var(--mn-radius-thumb);
+
+  --shadow-surface: var(--mn-surface-shadow);
+  --shadow-popover: var(--mn-popover-shadow);
+  --shadow-control: var(--mn-control-shadow);
+  --shadow-btn: var(--mn-btn-shadow);
+  --shadow-btn-hover: var(--mn-btn-shadow-hover);
+  --shadow-btn-active: var(--mn-btn-shadow-active);
+  --shadow-thumb: var(--mn-thumb-shadow);
+  --shadow-inset: var(--mn-inset-shadow);
+
+  --blur-surface: var(--mn-surface-blur);
+  --blur-overlay: var(--mn-overlay-blur);
+
+  --font-sans: var(--mn-font-sans);
+  --font-heading: var(--mn-font-heading);
+  --font-mono: var(--mn-font-mono);
+
+  --ease-mn: var(--mn-ease);
+
+  --animate-mn-indeterminate: mn-indeterminate 1.4s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+  --animate-mn-toast-in: mn-toast-in 260ms var(--mn-ease) both;
+  --animate-mn-toast-out: mn-toast-out 180ms ease-in both;
+  --animate-mn-shimmer: mn-shimmer 1.8s linear infinite;
+
+  @keyframes mn-indeterminate {
+    0% { translate: -100% 0; }
+    100% { translate: 300% 0; }
+  }
+  @keyframes mn-toast-in {
+    from { opacity: 0; translate: 0 12px; scale: 0.96; }
+  }
+  @keyframes mn-toast-out {
+    to { opacity: 0; scale: 0.94; }
+  }
+  @keyframes mn-shimmer {
+    from { background-position: 150% 0; }
+    to { background-position: -50% 0; }
+  }
+}
+
+/* ── Style-hook utilities ─────────────────────────────────────────────── */
+@utility border-mn {
+  border-width: var(--mn-border-width);
+}
+@utility border-b-mn {
+  border-bottom-width: var(--mn-border-width);
+}
+@utility border-e-mn {
+  border-inline-end-width: var(--mn-border-width);
+}
+@utility mn-btn-type {
+  font-family: var(--mn-font-control);
+  font-weight: var(--mn-btn-weight);
+  text-transform: var(--mn-btn-transform);
+  letter-spacing: var(--mn-btn-tracking);
+}
+@utility mn-heading-type {
+  font-family: var(--mn-font-heading);
+  font-weight: var(--mn-heading-weight);
+  letter-spacing: var(--mn-heading-tracking);
+  text-transform: var(--mn-heading-transform);
+}
+
+/* ── Tones: re-point the accent scale on any element ──────────────────── */
+@utility tone-primary {
+  --mn-h: var(--mn-primary-h);
+  --mn-c: var(--mn-primary-c);
+  /* Optional brand lightness overrides (used by e.g. the monochrome "minimal" style). */
+  --mn-tone-l9: var(--mn-primary-l);
+  --mn-tone-l9-dark: var(--mn-primary-l-dark);
+  --mn-tone-l10: var(--mn-primary-hover-l);
+  --mn-tone-l10-dark: var(--mn-primary-hover-l-dark);
+  --mn-tone-contrast: var(--mn-primary-contrast);
+}
+@utility tone-success {
+  --mn-h: var(--mn-success-h);
+  --mn-c: var(--mn-success-c);
+}
+@utility tone-info {
+  --mn-h: var(--mn-info-h);
+  --mn-c: var(--mn-info-c);
+}
+@utility tone-danger {
+  --mn-h: var(--mn-danger-h);
+  --mn-c: var(--mn-danger-c);
+}
+@utility tone-warning {
+  --mn-h: var(--mn-warning-h);
+  --mn-c: var(--mn-warning-c);
+  --mn-tone-l9: 0.8;
+  --mn-tone-l9-dark: 0.8;
+  --mn-tone-l10: 0.75;
+  --mn-tone-l10-dark: 0.85;
+  --mn-tone-contrast: oklch(0.24 0.06 60);
+}
+@utility tone-neutral {
+  --mn-h: var(--mn-gray-h);
+  --mn-c: 0.012;
+  --mn-tone-l9: 0.25;
+  --mn-tone-l9-dark: 0.93;
+  --mn-tone-l10: 0.34;
+  --mn-tone-l10-dark: 0.85;
+  --mn-tone-contrast: light-dark(oklch(0.99 0 0), oklch(0.18 0 0));
+}

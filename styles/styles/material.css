@@ -1,0 +1,68 @@
+/* Material 3 — tonal surfaces, pill buttons, state layers and elevation (inspired by Google Material Design 3). */
+@layer base {
+  [data-mn-style='material'] {
+    --mn-gray-h: 290;
+    --mn-gray-c: 0.012;
+    --mn-primary-h: 290;
+    --mn-primary-c: 0.16;
+    --mn-solid-l: 0.5;
+    --mn-solid-hover-l: 0.46;
+    --mn-solid-l-dark: 0.82;
+    --mn-solid-hover-l-dark: 0.86;
+    --mn-on-accent: light-dark(oklch(1 0 0), oklch(0.26 0.08 290));
+    --mn-bg: light-dark(oklch(0.985 0.008 290), oklch(0.17 0.01 290));
+    --mn-surface: light-dark(oklch(0.955 0.014 290), oklch(0.22 0.014 290));
+    --mn-surface-2: light-dark(oklch(0.94 0.016 290), oklch(0.25 0.016 290));
+    --mn-surface-3: light-dark(oklch(0.915 0.02 290), oklch(0.29 0.018 290));
+    --mn-border: light-dark(oklch(0.83 0.012 290), oklch(0.4 0.012 290));
+    --mn-surface-border: transparent;
+    --mn-control-border: light-dark(oklch(0.56 0.012 290), oklch(0.64 0.012 290));
+    --mn-surface-shadow: 0 1px 2px oklch(0 0 0 / 0.22), 0 1px 3px 1px oklch(0 0 0 / 0.1);
+    --mn-popover: var(--mn-surface-2);
+    --mn-popover-border: transparent;
+    --mn-popover-shadow: 0 4px 8px 3px oklch(0 0 0 / 0.12), 0 1px 3px oklch(0 0 0 / 0.26);
+    --mn-control: transparent;
+    --mn-control-shadow: 0 0 #0000;
+    --mn-inset-shadow: 0 0 #0000;
+    --mn-track: var(--mn-surface-3);
+    --mn-btn-shadow: 0 0 #0000;
+    --mn-btn-shadow-hover: 0 1px 2px oklch(0 0 0 / 0.25), 0 1px 3px 1px oklch(0 0 0 / 0.12);
+    --mn-btn-shadow-active: 0 0 #0000;
+    --mn-press-scale: 1;
+    --mn-radius-control: 9999px;
+    --mn-radius-field: 0.25rem;
+    --mn-radius-surface: 1rem;
+    --mn-radius-item: 0.5rem;
+    --mn-radius-badge: 0.5rem;
+    --mn-radius-check: 0.125rem;
+    --mn-font-sans: 'Roboto Flex', Roboto, ui-sans-serif, system-ui, sans-serif;
+    --mn-btn-tracking: 0.00625em;
+    --mn-heading-weight: 500;
+    --mn-heading-tracking: 0;
+    --mn-duration: 200ms;
+    --mn-ease: cubic-bezier(0.2, 0, 0, 1);
+  }
+}
+
+@layer utilities {
+  /* State layers: an 8% / 12% tint of the content colour. */
+  [data-mn-style='material'] .mn-btn:not(.mn-btn-link):hover {
+    background-image: linear-gradient(color-mix(in oklch, currentColor 8%, transparent) 0 0);
+  }
+  [data-mn-style='material'] .mn-btn:not(.mn-btn-link):active {
+    background-image: linear-gradient(color-mix(in oklch, currentColor 12%, transparent) 0 0);
+  }
+  [data-mn-style='material'] .mn-btn.mn-btn-outline {
+    border-color: var(--mn-control-border);
+  }
+  [data-mn-style='material'] .mn-input.mn-input:focus-visible {
+    border-color: var(--mn-accent-9);
+    box-shadow: inset 0 0 0 1px var(--mn-accent-9);
+  }
+  [data-mn-style='material'] .mn-dialog {
+    border-radius: 1.75rem;
+  }
+  [data-mn-style='material'] :is(.mn-menu, .mn-select-picker) {
+    border-radius: 0.25rem;
+  }
+}

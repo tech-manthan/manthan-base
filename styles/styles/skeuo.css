@@ -1,0 +1,74 @@
+/* Skeuomorphic — glossy gel buttons, bevels and tactile textures (inspired by Mac OS X Aqua and iOS 6). */
+@layer base {
+  [data-mn-style='skeuo'] {
+    --mn-gray-h: 70;
+    --mn-gray-c: 0.008;
+    --mn-primary-h: 250;
+    --mn-primary-c: 0.17;
+    --mn-solid-l: 0.58;
+    --mn-solid-hover-l: 0.54;
+    --mn-bg: light-dark(oklch(0.93 0.006 70), oklch(0.22 0.006 70));
+    --mn-surface: light-dark(oklch(0.985 0.003 70), oklch(0.28 0.006 70));
+    --mn-surface-2: light-dark(oklch(0.955 0.004 70), oklch(0.25 0.006 70));
+    --mn-surface-3: light-dark(oklch(0.92 0.006 70), oklch(0.31 0.006 70));
+    --mn-border: light-dark(oklch(0.82 0.006 70), oklch(0.16 0 0));
+    --mn-surface-border: light-dark(oklch(0.78 0.006 70), oklch(0.14 0 0));
+    --mn-popover-border: var(--mn-surface-border);
+    --mn-control-border: light-dark(oklch(0.7 0.006 70), oklch(0.13 0 0));
+    --mn-surface-shadow: inset 0 1px 0 light-dark(oklch(1 0 0 / 0.9), oklch(1 0 0 / 0.08)),
+      0 2px 4px oklch(0 0 0 / 0.12), 0 10px 20px -10px oklch(0 0 0 / 0.3);
+    --mn-popover-shadow: inset 0 1px 0 light-dark(oklch(1 0 0 / 0.9), oklch(1 0 0 / 0.08)), 0 16px 32px -8px oklch(0 0 0 / 0.35);
+    --mn-control: light-dark(oklch(1 0 0), oklch(0.19 0 0));
+    --mn-control-shadow: inset 0 1px 3px oklch(0 0 0 / 0.2), 0 1px 0 light-dark(oklch(1 0 0 / 0.8), oklch(1 0 0 / 0.06));
+    --mn-inset-shadow: inset 0 1px 3px oklch(0 0 0 / 0.3);
+    --mn-track: light-dark(oklch(0.86 0.006 70), oklch(0.18 0 0));
+    --mn-thumb: light-dark(oklch(0.99 0 0), oklch(0.85 0 0));
+    --mn-thumb-shadow: 0 1px 3px oklch(0 0 0 / 0.45), inset 0 -3px 4px oklch(0 0 0 / 0.08);
+    --mn-btn-shadow: 0 1px 2px oklch(0 0 0 / 0.3), inset 0 1px 0 oklch(1 0 0 / 0.5), inset 0 -1px 0 oklch(0 0 0 / 0.15);
+    --mn-btn-shadow-hover: var(--mn-btn-shadow);
+    --mn-btn-shadow-active: inset 0 2px 5px oklch(0 0 0 / 0.35);
+    --mn-press-scale: 1;
+    --mn-radius-control: 0.45rem;
+    --mn-radius-surface: 0.75rem;
+    --mn-font-sans: 'Lucida Grande', 'Helvetica Neue', ui-sans-serif, system-ui, sans-serif;
+    --mn-btn-weight: 600;
+    --mn-heading-weight: 700;
+    --mn-heading-tracking: -0.01em;
+
+    background-image: repeating-linear-gradient(45deg, oklch(0 0 0 / 0.018) 0 2px, transparent 2px 5px);
+  }
+}
+
+@layer utilities {
+  [data-mn-style='skeuo'] .mn-btn.mn-btn-solid,
+  [data-mn-style='skeuo'] .mn-progress-indicator,
+  [data-mn-style='skeuo'] .mn-badge.mn-badge-solid {
+    background-image: linear-gradient(
+      to bottom,
+      oklch(1 0 0 / 0.5) 0%,
+      oklch(1 0 0 / 0.15) 50%,
+      oklch(0 0 0 / 0) 51%,
+      oklch(1 0 0 / 0.12) 100%
+    );
+    border-color: color-mix(in oklch, var(--mn-accent-9), black 30%);
+    text-shadow: 0 -1px 0 oklch(0 0 0 / 0.3);
+  }
+  [data-mn-style='skeuo'] .mn-btn:is(.mn-btn-surface, .mn-btn-outline, .mn-btn-soft) {
+    background-image: linear-gradient(to bottom, light-dark(oklch(1 0 0), oklch(0.36 0 0)), light-dark(oklch(0.9 0.004 70), oklch(0.26 0 0)));
+    border-color: var(--mn-control-border);
+    color: var(--mn-fg);
+    box-shadow: var(--mn-btn-shadow);
+    text-shadow: 0 1px 0 light-dark(oklch(1 0 0 / 0.8), oklch(0 0 0 / 0.5));
+  }
+  [data-mn-style='skeuo'] .mn-card {
+    background-image: linear-gradient(to bottom, light-dark(oklch(1 0 0 / 0.9), oklch(1 0 0 / 0.04)), transparent 40%);
+  }
+  [data-mn-style='skeuo'] .mn-progress-indicator {
+    background-image:
+      linear-gradient(to bottom, oklch(1 0 0 / 0.5) 0%, oklch(1 0 0 / 0.1) 50%, oklch(0 0 0 / 0) 51%),
+      repeating-linear-gradient(-45deg, oklch(1 0 0 / 0.18) 0 8px, transparent 8px 16px);
+  }
+  [data-mn-style='skeuo'] .mn-switch-track {
+    box-shadow: var(--mn-inset-shadow);
+  }
+}

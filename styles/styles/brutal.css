@@ -1,0 +1,92 @@
+/* Neo-brutalism — thick ink outlines, hard offset shadows, loud flat colour (inspired by Gumroad / neobrutalism.dev). */
+@layer base {
+  [data-mn-style='brutal'] {
+    --mn-gray-h: 95;
+    --mn-gray-c: 0.012;
+    --mn-ink: light-dark(oklch(0.14 0 0), oklch(0.93 0 0));
+    --mn-primary-h: 290;
+    --mn-primary-c: 0.19;
+    --mn-solid-l: 0.78;
+    --mn-solid-l-dark: 0.78;
+    --mn-solid-hover-l: 0.74;
+    --mn-solid-hover-l-dark: 0.82;
+    --mn-on-accent: oklch(0.14 0 0);
+    --mn-bg: light-dark(oklch(0.97 0.035 95), oklch(0.2 0.01 95));
+    --mn-fg: light-dark(oklch(0.14 0 0), oklch(0.97 0 0));
+    --mn-fg-muted: light-dark(oklch(0.32 0 0), oklch(0.82 0 0));
+    --mn-fg-subtle: light-dark(oklch(0.45 0 0), oklch(0.68 0 0));
+    --mn-surface: light-dark(oklch(1 0 0), oklch(0.27 0.01 95));
+    --mn-surface-2: light-dark(oklch(0.95 0.045 95), oklch(0.3 0.012 95));
+    --mn-surface-3: light-dark(oklch(0.92 0.06 95), oklch(0.34 0.014 95));
+    --mn-edge: var(--mn-ink);
+    --mn-border: var(--mn-ink);
+    --mn-border-strong: var(--mn-ink);
+    --mn-surface-border: var(--mn-ink);
+    --mn-popover-border: var(--mn-ink);
+    --mn-control-border: var(--mn-ink);
+    --mn-border-width: 2px;
+    --mn-surface-shadow: 5px 5px 0 0 var(--mn-ink);
+    --mn-popover-shadow: 6px 6px 0 0 var(--mn-ink);
+    --mn-control-shadow: 3px 3px 0 0 var(--mn-ink);
+    --mn-inset-shadow: 0 0 #0000;
+    --mn-track: var(--mn-surface);
+    --mn-thumb: var(--mn-surface);
+    --mn-thumb-shadow: 2px 2px 0 0 var(--mn-ink);
+    --mn-btn-shadow: 4px 4px 0 0 var(--mn-ink);
+    --mn-btn-shadow-hover: 6px 6px 0 0 var(--mn-ink);
+    --mn-btn-shadow-active: 0 0 0 0 var(--mn-ink);
+    --mn-press-x: 4px;
+    --mn-press-y: 4px;
+    --mn-press-scale: 1;
+    --mn-tooltip: var(--mn-ink);
+    --mn-tooltip-fg: light-dark(oklch(0.99 0 0), oklch(0.14 0 0));
+    --mn-overlay: light-dark(oklch(0.2 0 0 / 0.45), oklch(0 0 0 / 0.7));
+    --mn-overlay-blur: 0px;
+    --mn-radius-control: 0.5rem;
+    --mn-radius-surface: 0.75rem;
+    --mn-radius-item: 0.375rem;
+    --mn-radius-badge: 0.375rem;
+    --mn-radius-check: 0.25rem;
+    --mn-radius-thumb: 0.3rem;
+    --mn-font-sans: 'Space Grotesk', 'Archivo', ui-sans-serif, system-ui, sans-serif;
+    --mn-btn-weight: 700;
+    --mn-heading-weight: 800;
+    --mn-heading-tracking: -0.03em;
+    --mn-duration: 100ms;
+  }
+}
+
+@layer utilities {
+  [data-mn-style='brutal'] .mn-btn:is(.mn-btn-soft, .mn-btn-outline, .mn-btn-surface) {
+    border-color: var(--mn-ink);
+    box-shadow: var(--mn-btn-shadow);
+  }
+  [data-mn-style='brutal'] .mn-btn:not(.mn-btn-ghost, .mn-btn-link):hover {
+    translate: -2px -2px;
+    box-shadow: var(--mn-btn-shadow-hover);
+  }
+  [data-mn-style='brutal'] .mn-btn:not(.mn-btn-ghost, .mn-btn-link):active {
+    translate: var(--mn-press-x) var(--mn-press-y);
+    box-shadow: var(--mn-btn-shadow-active);
+  }
+  [data-mn-style='brutal'] :is(.mn-badge, .mn-alert, .mn-tooltip, .mn-toast, .mn-page-item[aria-current='page'], .mn-kbd) {
+    border-color: var(--mn-ink);
+  }
+  [data-mn-style='brutal'] .mn-input.mn-input:focus-visible {
+    border-color: var(--mn-ink);
+    box-shadow: 4px 4px 0 0 var(--mn-accent-9);
+  }
+  [data-mn-style='brutal'] .mn-card.mn-card-interactive:hover {
+    translate: -3px -3px;
+    box-shadow: 8px 8px 0 0 var(--mn-ink);
+  }
+  [data-mn-style='brutal'] .mn-slider::-webkit-slider-thumb {
+    border-color: var(--mn-ink);
+  }
+  [data-mn-style='brutal'] .mn-slider::-moz-range-thumb {
+    border-color: var(--mn-ink);
+  }
+  [data-mn-style='brutal'] .mn-slider::-webkit-slider-runnable-track {
+    outline: 2px solid var(--mn-ink);
+  }
+}

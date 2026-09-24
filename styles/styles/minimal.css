@@ -1,0 +1,49 @@
+/* Minimal / Swiss — monochrome, hairlines, sharp corners, no shadows (inspired by Vercel Geist and Swiss typography). */
+@layer base {
+  [data-mn-style='minimal'] {
+    --mn-gray-h: 0;
+    --mn-gray-c: 0;
+    /* Monochrome primary: black in light mode, white in dark mode. */
+    --mn-primary-c: 0;
+    --mn-primary-l: 0.18;
+    --mn-primary-l-dark: 0.97;
+    --mn-primary-hover-l: 0.32;
+    --mn-primary-hover-l-dark: 0.85;
+    --mn-primary-contrast: light-dark(oklch(1 0 0), oklch(0.12 0 0));
+    --mn-tone-l9: var(--mn-primary-l);
+    --mn-tone-l9-dark: var(--mn-primary-l-dark);
+    --mn-tone-l10: var(--mn-primary-hover-l);
+    --mn-tone-l10-dark: var(--mn-primary-hover-l-dark);
+    --mn-tone-contrast: var(--mn-primary-contrast);
+    --mn-c: 0;
+    --mn-bg: light-dark(oklch(1 0 0), oklch(0.13 0 0));
+    --mn-surface: light-dark(oklch(1 0 0), oklch(0.13 0 0));
+    --mn-surface-2: light-dark(oklch(0.98 0 0), oklch(0.17 0 0));
+    --mn-surface-3: light-dark(oklch(0.955 0 0), oklch(0.21 0 0));
+    --mn-border: light-dark(oklch(0.91 0 0), oklch(0.27 0 0));
+    --mn-surface-border: var(--mn-border);
+    --mn-popover-border: var(--mn-border);
+    --mn-control-border: light-dark(oklch(0.86 0 0), oklch(0.33 0 0));
+    --mn-surface-shadow: 0 0 #0000;
+    --mn-popover-shadow: 0 8px 24px -12px light-dark(oklch(0 0 0 / 0.12), oklch(0 0 0 / 0.7));
+    --mn-control-shadow: 0 0 #0000;
+    --mn-inset-shadow: 0 0 #0000;
+    --mn-thumb-shadow: 0 0 0 1px var(--mn-control-border);
+    --mn-btn-shadow: 0 0 #0000;
+    --mn-btn-shadow-hover: 0 0 #0000;
+    --mn-press-scale: 1;
+    --mn-overlay: light-dark(oklch(1 0 0 / 0.7), oklch(0 0 0 / 0.7));
+    --mn-overlay-blur: 4px;
+    --mn-radius-control: 0;
+    --mn-radius-surface: 0;
+    --mn-radius-item: 0;
+    --mn-radius-badge: 0;
+    --mn-radius-check: 0;
+    --mn-radius-thumb: 0;
+    --mn-font-sans: 'Helvetica Neue', Helvetica, Arial, ui-sans-serif, sans-serif;
+    --mn-btn-weight: 500;
+    --mn-heading-weight: 700;
+    --mn-heading-tracking: -0.04em;
+    --mn-duration: 120ms;
+  }
+}

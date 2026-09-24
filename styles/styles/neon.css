@@ -1,0 +1,97 @@
+/* Neon / cyberpunk — always-dark synthwave grid, glowing outlines and text (inspired by Cyberpunk 2077 UI, synthwave). */
+@layer base {
+  [data-mn-style='neon'][data-mn-style] {
+    color-scheme: dark;
+  }
+  [data-mn-style='neon'] {
+    --mn-gray-h: 285;
+    --mn-gray-c: 0.03;
+    --mn-primary-h: 335;
+    --mn-primary-c: 0.25;
+    --mn-solid-l: 0.7;
+    --mn-solid-hover-l: 0.76;
+    --mn-solid-l-dark: 0.7;
+    --mn-solid-hover-l-dark: 0.76;
+    --mn-on-accent: oklch(0.13 0.03 285);
+    --mn-glow: oklch(0.65 0.25 310);
+    --mn-bg: oklch(0.13 0.035 285);
+    --mn-fg: oklch(0.96 0.03 285);
+    --mn-fg-muted: oklch(0.78 0.05 285);
+    --mn-fg-subtle: oklch(0.62 0.06 285);
+    --mn-surface: oklch(0.17 0.045 285 / 0.85);
+    --mn-surface-2: oklch(0.2 0.05 285);
+    --mn-surface-3: oklch(0.24 0.06 285);
+    --mn-border: oklch(0.36 0.09 290);
+    --mn-surface-border: oklch(0.55 0.18 305 / 0.55);
+    --mn-surface-shadow: 0 0 24px -6px oklch(0.6 0.25 310 / 0.45), inset 0 0 24px -12px oklch(0.6 0.25 310 / 0.4);
+    --mn-surface-blur: 8px;
+    --mn-popover: oklch(0.16 0.045 285 / 0.92);
+    --mn-popover-border: oklch(0.65 0.22 310 / 0.7);
+    --mn-popover-shadow: 0 0 36px -8px oklch(0.6 0.25 310 / 0.6);
+    --mn-control: oklch(0.1 0.03 285);
+    --mn-control-border: oklch(0.45 0.13 290);
+    --mn-control-shadow: inset 0 0 14px oklch(0.6 0.22 310 / 0.12);
+    --mn-inset-shadow: inset 0 0 8px oklch(0 0 0 / 0.6);
+    --mn-track: oklch(0.26 0.07 290);
+    --mn-thumb: oklch(0.96 0.03 285);
+    --mn-thumb-shadow: 0 0 12px oklch(0.8 0.18 200);
+    --mn-btn-shadow: 0 0 #0000;
+    --mn-btn-shadow-hover: 0 0 #0000;
+    --mn-press-scale: 0.97;
+    --mn-tooltip: oklch(0.2 0.06 290);
+    --mn-tooltip-fg: oklch(0.96 0.03 285);
+    --mn-overlay: oklch(0.06 0.03 285 / 0.72);
+    --mn-radius-control: 0.25rem;
+    --mn-radius-surface: 0.5rem;
+    --mn-radius-item: 0.2rem;
+    --mn-radius-badge: 0.25rem;
+    --mn-radius-check: 0.15rem;
+    --mn-font-sans: 'Rajdhani', 'Chakra Petch', ui-sans-serif, system-ui, sans-serif;
+    --mn-font-heading: 'Orbitron', 'Rajdhani', ui-sans-serif, sans-serif;
+    --mn-font-control: 'Orbitron', 'Rajdhani', ui-sans-serif, sans-serif;
+    --mn-btn-weight: 600;
+    --mn-btn-transform: uppercase;
+    --mn-btn-tracking: 0.12em;
+    --mn-heading-weight: 700;
+    --mn-heading-tracking: 0.06em;
+    --mn-heading-transform: uppercase;
+
+    background-image:
+      linear-gradient(oklch(0.6 0.2 310 / 0.07) 1px, transparent 1px),
+      linear-gradient(90deg, oklch(0.6 0.2 310 / 0.07) 1px, transparent 1px),
+      radial-gradient(ellipse at 50% -10%, oklch(0.45 0.22 310 / 0.45), transparent 60%);
+    background-size: 32px 32px, 32px 32px, 100% 100%;
+    background-attachment: fixed;
+  }
+}
+
+@layer utilities {
+  [data-mn-style='neon'] .mn-btn.mn-btn-solid {
+    box-shadow: 0 0 18px -2px color-mix(in oklch, var(--mn-accent-9) 75%, transparent), inset 0 0 10px oklch(1 0 0 / 0.25);
+  }
+  [data-mn-style='neon'] .mn-btn.mn-btn-solid:hover {
+    box-shadow: 0 0 28px 0 color-mix(in oklch, var(--mn-accent-9) 85%, transparent), inset 0 0 12px oklch(1 0 0 / 0.3);
+  }
+  [data-mn-style='neon'] .mn-btn:is(.mn-btn-outline, .mn-btn-surface, .mn-btn-soft) {
+    border-color: var(--mn-accent-9);
+    color: var(--mn-accent-11);
+    text-shadow: 0 0 8px color-mix(in oklch, var(--mn-accent-9) 80%, transparent);
+    box-shadow: 0 0 12px -3px color-mix(in oklch, var(--mn-accent-9) 70%, transparent),
+      inset 0 0 12px -4px color-mix(in oklch, var(--mn-accent-9) 60%, transparent);
+  }
+  [data-mn-style='neon'] .mn-btn.mn-btn-ghost,
+  [data-mn-style='neon'] .mn-tab[aria-selected='true'],
+  [data-mn-style='neon'] .mn-heading-glow {
+    text-shadow: 0 0 10px color-mix(in oklch, var(--mn-accent-9) 80%, transparent);
+  }
+  [data-mn-style='neon'] .mn-input.mn-input:focus-visible {
+    border-color: var(--mn-accent-9);
+    box-shadow: 0 0 0 1px var(--mn-accent-9), 0 0 18px -2px color-mix(in oklch, var(--mn-accent-9) 70%, transparent);
+  }
+  [data-mn-style='neon'] :is(.mn-progress-indicator, .mn-badge.mn-badge-solid) {
+    box-shadow: 0 0 12px color-mix(in oklch, var(--mn-accent-9) 80%, transparent);
+  }
+  [data-mn-style='neon'] .mn-alert {
+    box-shadow: inset 3px 0 0 var(--mn-accent-9), 0 0 16px -6px var(--mn-accent-9);
+  }
+}

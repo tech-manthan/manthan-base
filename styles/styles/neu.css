@@ -1,0 +1,61 @@
+/* Neumorphism (soft UI) — extruded and debossed shapes from one continuous surface. */
+@layer base {
+  [data-mn-style='neu'] {
+    --mn-gray-h: 255;
+    --mn-gray-c: 0.014;
+    --mn-neu-base: light-dark(oklch(0.925 0.012 255), oklch(0.27 0.012 255));
+    --mn-neu-hi: light-dark(oklch(1 0 0 / 0.95), oklch(0.36 0.014 255 / 0.75));
+    --mn-neu-lo: light-dark(oklch(0.7 0.035 255 / 0.55), oklch(0.13 0.01 255 / 0.85));
+    --mn-bg: var(--mn-neu-base);
+    --mn-surface: var(--mn-neu-base);
+    --mn-surface-2: light-dark(oklch(0.905 0.014 255), oklch(0.25 0.012 255));
+    --mn-surface-3: var(--mn-neu-base);
+    --mn-border: light-dark(oklch(0.86 0.016 255), oklch(0.32 0.012 255));
+    --mn-surface-border: transparent;
+    --mn-surface-shadow: 9px 9px 18px var(--mn-neu-lo), -9px -9px 18px var(--mn-neu-hi);
+    --mn-popover: var(--mn-neu-base);
+    --mn-popover-border: transparent;
+    --mn-popover-shadow: 14px 14px 28px var(--mn-neu-lo), -14px -14px 28px var(--mn-neu-hi);
+    --mn-control: var(--mn-neu-base);
+    --mn-control-border: transparent;
+    --mn-control-shadow: inset 4px 4px 8px var(--mn-neu-lo), inset -4px -4px 8px var(--mn-neu-hi);
+    --mn-inset-shadow: inset 3px 3px 6px var(--mn-neu-lo), inset -3px -3px 6px var(--mn-neu-hi);
+    --mn-track: var(--mn-neu-base);
+    --mn-thumb: var(--mn-neu-base);
+    --mn-thumb-shadow: 3px 3px 6px var(--mn-neu-lo), -3px -3px 6px var(--mn-neu-hi);
+    --mn-btn-shadow: 5px 5px 10px var(--mn-neu-lo), -5px -5px 10px var(--mn-neu-hi);
+    --mn-btn-shadow-hover: 7px 7px 14px var(--mn-neu-lo), -7px -7px 14px var(--mn-neu-hi);
+    --mn-btn-shadow-active: inset 4px 4px 8px var(--mn-neu-lo), inset -4px -4px 8px var(--mn-neu-hi);
+    --mn-press-scale: 1;
+    --mn-overlay: light-dark(oklch(0.55 0.03 255 / 0.3), oklch(0 0 0 / 0.5));
+    --mn-radius-control: 0.9rem;
+    --mn-radius-surface: 1.5rem;
+    --mn-radius-item: 0.65rem;
+    --mn-radius-check: 0.4rem;
+    --mn-font-sans: 'Poppins', 'Inter Variable', Inter, ui-sans-serif, system-ui, sans-serif;
+    --mn-duration: 220ms;
+  }
+}
+
+@layer utilities {
+  [data-mn-style='neu'] .mn-btn:is(.mn-btn-soft, .mn-btn-surface) {
+    background-color: var(--mn-neu-base);
+    border-color: transparent;
+    box-shadow: var(--mn-btn-shadow);
+  }
+  [data-mn-style='neu'] .mn-btn:is(.mn-btn-soft, .mn-btn-surface):hover {
+    box-shadow: var(--mn-btn-shadow-hover);
+  }
+  [data-mn-style='neu'] .mn-btn:is(.mn-btn-soft, .mn-btn-surface, .mn-btn-solid):active {
+    box-shadow: var(--mn-btn-shadow-active);
+  }
+  [data-mn-style='neu'] .mn-badge.mn-badge-surface,
+  [data-mn-style='neu'] .mn-avatar {
+    box-shadow: 3px 3px 6px var(--mn-neu-lo), -3px -3px 6px var(--mn-neu-hi);
+  }
+  [data-mn-style='neu'] .mn-alert.mn-alert-soft {
+    background-color: var(--mn-neu-base);
+    border-color: transparent;
+    box-shadow: var(--mn-inset-shadow);
+  }
+}

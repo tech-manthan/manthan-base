@@ -1,0 +1,58 @@
+/* Claymorphism — puffy, inflated pastel shapes with inner highlights and soft drop shadows. */
+@layer base {
+  [data-mn-style='clay'] {
+    --mn-gray-h: 300;
+    --mn-gray-c: 0.02;
+    --mn-primary-h: 295;
+    --mn-primary-c: 0.17;
+    --mn-solid-l: 0.66;
+    --mn-solid-hover-l: 0.62;
+    --mn-solid-l-dark: 0.68;
+    --mn-solid-hover-l-dark: 0.72;
+    --mn-clay-out: light-dark(oklch(0.45 0.09 300 / 0.24), oklch(0 0 0 / 0.5));
+    --mn-clay-shade: light-dark(oklch(0.45 0.09 300 / 0.16), oklch(0 0 0 / 0.35));
+    --mn-clay-light: light-dark(oklch(1 0 0 / 0.9), oklch(1 0 0 / 0.08));
+    --mn-bg: light-dark(oklch(0.95 0.025 300), oklch(0.23 0.03 300));
+    --mn-surface: light-dark(oklch(0.985 0.012 300), oklch(0.3 0.035 300));
+    --mn-surface-2: light-dark(oklch(0.96 0.02 300), oklch(0.27 0.03 300));
+    --mn-surface-3: light-dark(oklch(0.93 0.03 300), oklch(0.33 0.035 300));
+    --mn-border: light-dark(oklch(0.88 0.03 300), oklch(0.38 0.03 300));
+    --mn-surface-border: transparent;
+    --mn-popover-border: transparent;
+    --mn-control-border: transparent;
+    --mn-surface-shadow: 14px 16px 32px var(--mn-clay-out), inset -8px -8px 16px var(--mn-clay-shade),
+      inset 8px 8px 16px var(--mn-clay-light);
+    --mn-popover: var(--mn-surface);
+    --mn-popover-shadow: 18px 22px 44px var(--mn-clay-out), inset -8px -8px 16px var(--mn-clay-shade),
+      inset 8px 8px 16px var(--mn-clay-light);
+    --mn-control: var(--mn-surface);
+    --mn-control-shadow: inset 4px 4px 8px var(--mn-clay-shade), inset -4px -4px 8px var(--mn-clay-light);
+    --mn-inset-shadow: inset 3px 3px 6px var(--mn-clay-shade), inset -3px -3px 6px var(--mn-clay-light);
+    --mn-track: var(--mn-surface-3);
+    --mn-thumb-shadow: 3px 4px 8px var(--mn-clay-out), inset -2px -2px 4px oklch(0 0 0 / 0.12), inset 2px 2px 4px oklch(1 0 0 / 0.8);
+    --mn-btn-shadow: 6px 8px 16px var(--mn-clay-out), inset -4px -4px 8px oklch(0 0 0 / 0.16), inset 4px 4px 8px oklch(1 0 0 / 0.45);
+    --mn-btn-shadow-hover: 8px 12px 22px var(--mn-clay-out), inset -4px -4px 8px oklch(0 0 0 / 0.16), inset 4px 4px 8px oklch(1 0 0 / 0.5);
+    --mn-btn-shadow-active: 2px 3px 6px var(--mn-clay-out), inset -2px -2px 6px oklch(0 0 0 / 0.14), inset 4px 4px 10px oklch(0 0 0 / 0.14);
+    --mn-press-scale: 0.96;
+    --mn-overlay: light-dark(oklch(0.5 0.06 300 / 0.28), oklch(0 0 0 / 0.55));
+    --mn-radius-control: 1.1rem;
+    --mn-radius-surface: 2rem;
+    --mn-radius-item: 0.8rem;
+    --mn-radius-check: 0.5rem;
+    --mn-font-sans: 'Nunito', 'Quicksand', ui-rounded, ui-sans-serif, system-ui, sans-serif;
+    --mn-btn-weight: 800;
+    --mn-heading-weight: 800;
+    --mn-heading-tracking: -0.01em;
+    --mn-duration: 240ms;
+    --mn-ease: cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+}
+
+@layer utilities {
+  [data-mn-style='clay'] .mn-btn:is(.mn-btn-soft, .mn-btn-outline) {
+    box-shadow: var(--mn-btn-shadow);
+  }
+  [data-mn-style='clay'] :is(.mn-badge, .mn-avatar) {
+    box-shadow: 3px 4px 8px var(--mn-clay-out), inset -2px -2px 4px oklch(0 0 0 / 0.1), inset 2px 2px 4px oklch(1 0 0 / 0.5);
+  }
+}
