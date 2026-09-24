@@ -47,7 +47,7 @@ export const textarea = recipe({
 
 export const select = slotRecipe({
   slots: {
-    root: 'mn-select-root relative inline-flex w-full',
+    root: 'mn-select-root relative flex min-w-0',
     select: [
       ...fieldBase,
       'mn-select cursor-pointer appearance-none truncate pe-9',
