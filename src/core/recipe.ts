@@ -58,6 +58,9 @@ export interface RecipeConfig<V extends VariantSchema> {
 
 export type RecipeProps<V extends VariantSchema> = VariantSelection<V> & { class?: ClassValue };
 
+/** Variant props of any recipe or slot recipe: `VariantProps<typeof button>`. */
+export type VariantProps<R extends { variants: AnyVariants }> = VariantSelection<R['variants']>;
+
 export interface Recipe<V extends VariantSchema> {
   (props?: RecipeProps<V>): string;
   readonly variants: V;

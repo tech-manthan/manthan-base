@@ -1,5 +1,5 @@
 import { AlertTriangle, CheckCircle, Info, X, XCircle, createIcon, type IconNode } from '@manthan/icons';
-import { toast as defaultToaster, type Toaster, type ToastRecord } from '../core/toast';
+import { toast as defaultToaster, type ToastStore, type ToastRecord } from '../core/toast';
 import { button } from '../recipes/button';
 import { spinner } from '../recipes/feedback';
 import { closeButton, toastRecipe } from '../recipes/overlay';
@@ -14,7 +14,7 @@ export const toastIcons: Partial<Record<NonNullable<ToastRecord['tone']>, IconNo
 };
 
 export interface MountToasterOptions {
-  toaster?: Toaster;
+  toaster?: ToastStore;
   placement?: Placement;
   container?: HTMLElement;
   /** Accessible name of the notification region. @default 'Notifications' */

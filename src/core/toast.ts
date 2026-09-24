@@ -37,7 +37,7 @@ export interface ToasterOptions {
 
 export type ToastInput = string | ToastOptions;
 
-export interface Toaster {
+export interface ToastStore {
   (input: ToastInput): string;
   show(input: ToastInput): string;
   success(input: ToastInput): string;
@@ -63,7 +63,7 @@ export interface Toaster {
 let seed = 0;
 
 /** Framework-agnostic toast store. Every Manthan binding renders it with its own `<Toaster>`. */
-export function createToaster(options: ToasterOptions = {}): Toaster {
+export function createToaster(options: ToasterOptions = {}): ToastStore {
   const { duration: defaultDuration = 5000, max = 5, removeDelay = 200 } = options;
   let toasts: readonly ToastRecord[] = [];
   const listeners = new Set<() => void>();
@@ -122,7 +122,7 @@ export function createToaster(options: ToasterOptions = {}): Toaster {
     setTimeout(() => set(toasts.filter((t) => !(ids.has(t.id) && t.state === 'closed'))), removeDelay);
   }
 
-  const toaster = ((input: ToastInput) => show(input)) as Toaster;
+  const toaster = ((input: ToastInput) => show(input)) as ToastStore;
   toaster.show = (input) => show(input);
   toaster.success = (input) => show(input, 'success');
   toaster.error = (input) => show(input, 'danger');
