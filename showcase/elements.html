@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en" data-mn-style="default" data-mn-theme="system">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Manthan Elements</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&family=Poppins:wght@400;500;600;700&family=Space+Grotesk:wght@400..700&family=Roboto+Flex:opsz,wght@8..144,400..700&family=Nunito:wght@400..900&family=Press+Start+2P&family=Silkscreen&family=VT323&family=Orbitron:wght@500..800&family=Rajdhani:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+    />
+    <script type="module" src="./elements.ts"></script>
+  </head>
+  <body class="min-h-dvh">
+    <main class="mx-auto flex max-w-5xl flex-col gap-10 px-4 py-10 sm:px-6">
+      <header class="flex flex-wrap items-center gap-3">
+        <div class="me-auto flex flex-col gap-1">
+          <h1 class="mn-heading-type text-3xl">Manthan Elements</h1>
+          <p class="max-w-2xl text-fg-muted">Everything on this page is plain HTML: <code class="font-mono text-sm">&lt;mn-*&gt;</code> custom elements, no framework. Use them from htmx, Rails, Django, Laravel, Astro, WordPress, Solid, Qwik or Lit.</p>
+        </div>
+        <mn-select id="style" label="Style" size="sm" class="w-44">
+          <option value="default">Default</option><option value="glass">Glassmorphism</option><option value="neu">Neumorphism</option>
+          <option value="brutal">Neo-brutalism</option><option value="material">Material 3</option><option value="fluent">Fluent 2</option>
+          <option value="clay">Claymorphism</option><option value="retro">Retro 8-bit</option><option value="neon">Neon</option>
+          <option value="minimal">Minimal</option><option value="skeuo">Skeuomorphic</option>
+        </mn-select>
+        <mn-button variant="surface" tone="neutral" data-mn-open="palette"><mn-icon name="command" size="16"></mn-icon> Commands <mn-kbd>Ctrl K</mn-kbd></mn-button>
+      </header>
+
+      <div class="grid gap-6 lg:grid-cols-2">
+        <mn-card heading="Create account" description="A real &lt;form&gt;: submit it to see FormData.">
+          <form id="signup" class="flex flex-col gap-4">
+            <mn-field label="Email" description="We never share it." required>
+              <mn-input name="email" type="email" placeholder="you@example.com" start-icon="mail"></mn-input>
+            </mn-field>
+            <mn-field label="Framework">
+              <mn-combobox name="framework" placeholder="Search…" value="htmx">
+                <optgroup label="Server"><option value="htmx">htmx</option><option value="rails">Ruby on Rails</option><option value="django">Django</option><option value="laravel">Laravel</option></optgroup>
+                <optgroup label="Islands"><option value="astro">Astro</option><option value="qwik">Qwik</option><option value="solid">SolidJS</option></optgroup>
+              </mn-combobox>
+            </mn-field>
+            <mn-field label="Start date"><mn-date-picker name="start"></mn-date-picker></mn-field>
+            <mn-field label="Volume"><mn-slider name="volume" value="60"></mn-slider></mn-field>
+            <div class="flex flex-wrap gap-x-6 gap-y-3">
+              <mn-checkbox name="terms" value="yes" checked>I agree to the terms</mn-checkbox>
+              <mn-switch name="newsletter">Newsletter</mn-switch>
+            </div>
+            <div class="flex gap-2">
+              <mn-button type="submit">Create account <mn-icon name="arrow-right" size="16"></mn-icon></mn-button>
+              <mn-button type="reset" variant="ghost" tone="neutral">Reset</mn-button>
+            </div>
+          </form>
+        </mn-card>
+
+        <div class="flex flex-col gap-6">
+          <mn-card>
+            <div class="flex flex-wrap items-center gap-3">
+              <mn-button tone="danger" variant="soft" data-mn-open="confirm"><mn-icon name="trash" size="16"></mn-icon> Delete</mn-button>
+              <mn-menu>
+                <mn-button variant="surface" tone="neutral"><mn-icon name="user" size="16"></mn-icon> Account</mn-button>
+                <mn-menu-label>ada@example.com</mn-menu-label>
+                <mn-menu-item value="profile" icon="user" shortcut="⇧⌘P">Profile</mn-menu-item>
+                <mn-menu-item value="settings" icon="settings">Settings</mn-menu-item>
+                <mn-menu-separator></mn-menu-separator>
+                <mn-menu-item value="logout" icon="log-out" tone="danger">Log out</mn-menu-item>
+              </mn-menu>
+              <mn-tooltip content="Copy link"><mn-button variant="ghost" icon-only label="Copy link"><mn-icon name="link" size="16"></mn-icon></mn-button></mn-tooltip>
+            </div>
+          </mn-card>
+          <mn-tabs variant="segmented">
+            <mn-tab value="overview">Overview</mn-tab>
+            <mn-tab value="activity">Activity</mn-tab>
+            <mn-tab-panel value="overview" class="flex flex-col gap-3">
+              <mn-progress value="72" tone="success"></mn-progress>
+              <div class="flex items-center gap-2"><mn-avatar alt="Grace Hopper"></mn-avatar><mn-avatar alt="Alan Turing" tone="success"></mn-avatar><mn-badge variant="solid">Pro</mn-badge><mn-badge tone="warning">Beta</mn-badge></div>
+            </mn-tab-panel>
+            <mn-tab-panel value="activity"><mn-alert tone="info" heading="No activity yet">Deploys will appear here.</mn-alert></mn-tab-panel>
+          </mn-tabs>
+          <mn-alert tone="success" variant="surface" heading="Deployed">Your site is live.</mn-alert>
+          <mn-calendar></mn-calendar>
+        </div>
+      </div>
+
+      <mn-data-table page-size="5" selectable caption="Team members">
+        <mn-column key="name" header="Name"></mn-column>
+        <mn-column key="role" header="Role"></mn-column>
+        <mn-column key="stack" header="Stack"></mn-column>
+        <mn-column key="commits" header="Commits" align="end"></mn-column>
+        <script type="application/json">
+          [
+            { "id": "1", "name": "Ada Lovelace", "role": "Maintainer", "stack": "Rails", "commits": 1204 },
+            { "id": "2", "name": "Alan Turing", "role": "Contributor", "stack": "Django", "commits": 312 },
+            { "id": "3", "name": "Grace Hopper", "role": "Maintainer", "stack": "Laravel", "commits": 988 },
+            { "id": "4", "name": "Linus Torvalds", "role": "Reviewer", "stack": "htmx", "commits": 45 },
+            { "id": "5", "name": "Margaret Hamilton", "role": "Maintainer", "stack": "Astro", "commits": 776 },
+            { "id": "6", "name": "Barbara Liskov", "role": "Contributor", "stack": "Solid", "commits": 230 },
+            { "id": "7", "name": "Radia Perlman", "role": "Reviewer", "stack": "Qwik", "commits": 91 }
+          ]
+        </script>
+      </mn-data-table>
+    </main>
+
+    <mn-dialog id="confirm" heading="Delete project?" description="This permanently deletes the project and its 42 deployments.">
+      <div slot="footer" class="flex gap-2">
+        <mn-button variant="surface" tone="neutral" data-mn-close>Cancel</mn-button>
+        <mn-button tone="danger" data-mn-close id="confirm-delete">Delete</mn-button>
+      </div>
+    </mn-dialog>
+    <mn-command-dialog id="palette">
+      <optgroup label="Styles"><option value="glass">Switch to Glassmorphism</option><option value="brutal">Switch to Neo-brutalism</option><option value="neon">Switch to Neon</option></optgroup>
+      <optgroup label="Account"><option value="profile" data-shortcut="mod+p">Profile</option></optgroup>
+    </mn-command-dialog>
+    <mn-toaster></mn-toaster>
+  </body>
+</html>

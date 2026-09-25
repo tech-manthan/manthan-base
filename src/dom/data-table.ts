@@ -63,7 +63,7 @@ export function createDataTable<T>(root: HTMLElement, options: DataTableControll
   };
   indexRows();
 
-  root.className = s.root();
+  root.className = s.root(root.className);
   const toolbar = h('div', s.toolbar());
   const summary = h('div', s.summary());
   if (searchable) {

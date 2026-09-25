@@ -142,7 +142,8 @@ function hero() {
       <a href="#styles" class="${button({ size: 'lg', variant: 'surface', tone: 'neutral' })}">${icon(I.Palette)} Compare styles</a>
     </div>
     <div class="flex flex-wrap items-center gap-2 text-sm text-fg-muted">
-      ${['React', 'Vue', 'Svelte', 'Angular', 'HTML / Web Components'].map((f) => `<span class="${badge({ variant: 'outline', tone: 'neutral' })}">${f}</span>`).join('')}
+      ${['React', 'Vue', 'Svelte', 'Angular'].map((f) => `<span class="${badge({ variant: 'outline', tone: 'neutral' })}">${f}</span>`).join('')}
+      <a href="./elements.html" class="${badge({ variant: 'surface' })} hover:underline">HTML / Web Components ${icon(I.ArrowRight)}</a>
     </div>
   </div>`;
 }

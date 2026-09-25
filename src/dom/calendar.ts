@@ -43,11 +43,12 @@ export function createCalendar(root: HTMLElement, options: CalendarControllerOpt
   let month = startOfMonth(focused);
   let shouldFocus = false;
   const s = calendarRecipe({ size });
+  const authorClass = root.className;
 
   const render = () => {
     const weekdays = getWeekdayNames({ locale, weekStartsOn, format: 'narrow' });
     const weeks = getCalendarWeeks(month, { weekStartsOn });
-    root.className = s.root();
+    root.className = s.root(authorClass);
     root.replaceChildren();
 
     const header = document.createElement('div');

@@ -73,6 +73,42 @@ mountToaster();
 toast.success('Saved');
 ```
 
+### Web Components: `<mn-*>` elements for every other stack
+
+For htmx, Rails, Django, Laravel, Phoenix, Astro, WordPress, Solid, Qwik, Lit or a static page:
+
+```html
+<script type="module">import '@manthan/base/elements/define';</script>
+
+<form method="post">
+  <mn-field label="Email" error="Required">
+    <mn-input name="email" type="email" start-icon="mail"></mn-input>
+  </mn-field>
+  <mn-combobox name="framework" placeholder="Search…">
+    <optgroup label="Server"><option value="rails">Rails</option><option value="django">Django</option></optgroup>
+  </mn-combobox>
+  <mn-date-picker name="start"></mn-date-picker>
+  <mn-switch name="newsletter">Newsletter</mn-switch>
+  <mn-button type="submit">Save</mn-button>
+</form>
+
+<mn-button data-mn-open="confirm" tone="danger">Delete</mn-button>
+<mn-dialog id="confirm" heading="Delete project?">
+  <div slot="footer"><mn-button data-mn-close>Cancel</mn-button></div>
+</mn-dialog>
+```
+
+Elements render into the light DOM (no shadow root), so the Tailwind theme and your own classes apply. Each one wraps a native control, so forms submit, autofill and validate as usual. Events: `mn-change`, `mn-select`, `mn-open-change`, `mn-selection-change`.
+
+| Group | Elements |
+| --- | --- |
+| Basics | `mn-button`, `mn-icon`, `mn-badge`, `mn-kbd`, `mn-card`, `mn-alert`, `mn-avatar`, `mn-progress`, `mn-spinner`, `mn-skeleton` |
+| Forms | `mn-field`, `mn-input`, `mn-textarea`, `mn-select`, `mn-checkbox`, `mn-switch`, `mn-slider`, `mn-combobox`, `mn-date-picker`, `mn-calendar` |
+| Overlays | `mn-dialog`, `mn-popover`, `mn-menu` (+ `mn-menu-item`, `mn-menu-label`, `mn-menu-separator`), `mn-tooltip`, `mn-toaster`, `mn-command-dialog` |
+| Data | `mn-tabs` (+ `mn-tab`, `mn-tab-panel`), `mn-data-table` (+ `mn-column`, inline JSON or `el.rows = [...]`) |
+
+`showcase/elements.html` is a complete page written only in HTML.
+
 ## How it is built: the best of each library
 
 | Idea | Borrowed from | Where |

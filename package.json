@@ -4,19 +4,43 @@
   "description": "Manthan UI core: Tailwind v4 theme, 11 design styles, component class recipes and framework-agnostic behaviours.",
   "license": "MIT",
   "type": "module",
-  "sideEffects": ["*.css"],
-  "repository": { "type": "git", "url": "https://github.com/tech-manthan/manthan-base" },
+  "sideEffects": [
+    "*.css",
+    "./dist/elements/define.js",
+    "./src/elements/define.ts"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tech-manthan/manthan-base"
+  },
   "main": "./dist/index.js",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
-    ".": { "types": "./dist/index.d.ts", "import": "./dist/index.js" },
-    "./dom": { "types": "./dist/dom/index.d.ts", "import": "./dist/dom/index.js" },
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./dom": {
+      "types": "./dist/dom/index.d.ts",
+      "import": "./dist/dom/index.js"
+    },
+    "./elements": {
+      "types": "./dist/elements/index.d.ts",
+      "import": "./dist/elements/index.js"
+    },
+    "./elements/define": {
+      "types": "./dist/elements/define.d.ts",
+      "import": "./dist/elements/define.js"
+    },
     "./theme.css": "./styles/theme.css",
     "./styles/*": "./styles/*",
     "./package.json": "./package.json"
   },
-  "files": ["dist", "styles"],
+  "files": [
+    "dist",
+    "styles"
+  ],
   "scripts": {
     "build": "tsup",
     "dev": "vite showcase",
@@ -29,7 +53,9 @@
     "tailwindcss": "^4.1.0"
   },
   "peerDependenciesMeta": {
-    "@manthan/icons": { "optional": true }
+    "@manthan/icons": {
+      "optional": true
+    }
   },
   "devDependencies": {
     "@manthan/icons": "file:../manthan-icons",
