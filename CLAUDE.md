@@ -18,7 +18,7 @@ manthan/
 
 - Dependencies flow icons → base → the framework packages.
 - During development the packages link to each other with `file:../manthan-*` devDependencies. The published packages declare version ranges as peerDependencies.
-- The active branch is `claude/great-turing-ihfjsd`. There is no `main` branch yet.
+- The active branch is `main` (each repo's GitHub default). The old `claude/great-turing-ihfjsd` branch still exists on each remote but is no longer used.
 - TypeScript is pinned to ~6.0.3 everywhere. The tsup DTS build needs `"ignoreDeprecations": "6.0"`.
 - The Angular CLI needs Node ≥ 22.22.3 or ≥ 24.15.
 
@@ -73,9 +73,9 @@ Test counts at hand-off:
 
 Suggested order: 5 next, then 4.
 
-1. **Branches:** done — `claude/great-turing-ihfjsd` is already each repo's GitHub default branch (verified 2026-09-25). No repo has `main`; PRs, when opened, should target `claude/great-turing-ihfjsd`.
+1. **Branches:** done — every repo now has a real `main` branch, pushed and set as the GitHub default (2026-09-25). The old `claude/great-turing-ihfjsd` branch is still on each remote but unused; PRs should target `main`.
 2. **npm publishing:** nothing is published. Swap the `file:../manthan-*` devDependencies for real versions, and set up the `@manthan` npm scope.
-3. **CI:** done — every repo has `.github/workflows/ci.yml` running build, test and typecheck on push/PR to `claude/great-turing-ihfjsd`. Framework repos checkout `manthan-icons` and `manthan-base` as siblings and build them first, since dependencies are `file:../manthan-*` links, not registry versions.
+3. **CI:** done — every repo has `.github/workflows/ci.yml` running build, test and typecheck on push/PR to `main`. Framework repos checkout `manthan-icons` and `manthan-base` as siblings and build them first, since dependencies are `file:../manthan-*` links, not registry versions.
 4. **Release tooling:** add versioning, changelogs and automatic publishing (for example Changesets) across the six packages.
 5. **Docs site:** a page per component with a props table and code for each framework.
 6. **Accessibility review:** automated axe scans across all 11 styles × light/dark, plus a screen-reader pass.
