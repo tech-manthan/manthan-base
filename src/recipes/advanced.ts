@@ -84,7 +84,7 @@ export const commandDialog = recipe({
 
 export const toggleGroup = slotRecipe({
   slots: {
-    root: 'mn-toggle-group inline-flex items-center',
+    root: 'mn-toggle-group inline-flex w-fit items-center',
     item: [
       'mn-toggle relative inline-flex cursor-pointer select-none items-center justify-center gap-2 whitespace-nowrap font-medium mn-btn-type',
       transitionColors,
