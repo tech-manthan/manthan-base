@@ -71,11 +71,11 @@ Test counts at hand-off:
 
 ## Roadmap / open decisions
 
-Suggested order: 3 and 1 first, then 5.
+Suggested order: 5 next, then 4.
 
-1. **Branches:** open PRs, or make `claude/great-turing-ihfjsd` the `main`/default branch. No repo has `main` yet.
+1. **Branches:** done — `claude/great-turing-ihfjsd` is already each repo's GitHub default branch (verified 2026-09-25). No repo has `main`; PRs, when opened, should target `claude/great-turing-ihfjsd`.
 2. **npm publishing:** nothing is published. Swap the `file:../manthan-*` devDependencies for real versions, and set up the `@manthan` npm scope.
-3. **CI:** no repo has GitHub Actions yet. Each repo should run build, test and typecheck, in dependency order (icons → base → frameworks). Angular needs Node ≥ 22.22.3.
+3. **CI:** done — every repo has `.github/workflows/ci.yml` running build, test and typecheck on push/PR to `claude/great-turing-ihfjsd`. Framework repos checkout `manthan-icons` and `manthan-base` as siblings and build them first, since dependencies are `file:../manthan-*` links, not registry versions.
 4. **Release tooling:** add versioning, changelogs and automatic publishing (for example Changesets) across the six packages.
 5. **Docs site:** a page per component with a props table and code for each framework.
 6. **Accessibility review:** automated axe scans across all 11 styles × light/dark, plus a screen-reader pass.
