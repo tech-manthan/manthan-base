@@ -71,6 +71,15 @@ Test counts at hand-off:
 
 ## Roadmap / open decisions
 
-- Open PRs, or make `main` the default branch.
-- A docs site.
-- An accessibility and bundle-size audit.
+Suggested order: 3 and 1 first, then 5.
+
+1. **Branches:** open PRs, or make `claude/great-turing-ihfjsd` the `main`/default branch. No repo has `main` yet.
+2. **npm publishing:** nothing is published. Swap the `file:../manthan-*` devDependencies for real versions, and set up the `@manthan` npm scope.
+3. **CI:** no repo has GitHub Actions yet. Each repo should run build, test and typecheck, in dependency order (icons → base → frameworks). Angular needs Node ≥ 22.22.3.
+4. **Release tooling:** add versioning, changelogs and automatic publishing (for example Changesets) across the six packages.
+5. **Docs site:** a page per component with a props table and code for each framework.
+6. **Accessibility review:** automated axe scans across all 11 styles × light/dark, plus a screen-reader pass.
+7. **Bundle size:** measure it. The React build uses `treeshake: false` so `'use client'` survives. Charts might become a separate import.
+8. **More components:** carousel, resizable panels, tree view, rich-text editor, time picker, date-range picker, multi-select combobox, sidebar shell.
+9. **Charts:** scatter and heatmap, a pattern-fill option (for print and colour-blind readers), a visible "view as table" toggle.
+10. **Visual regression tests:** screenshots per style and theme (Playwright).
