@@ -8,6 +8,7 @@
  */
 import { MnComboboxElement, MnCommandDialogElement, MnCalendarElement, MnDataTableElement, MnDatePickerElement, MnTabsElement } from './advanced';
 import { MnCheckboxElement, MnFieldElement, MnInputElement, MnSelectElement, MnSliderElement, MnSwitchElement, MnTextareaElement } from './form';
+import { MnFileUploadElement } from './files';
 import { MnDialogElement, MnMenuElement, MnPopoverElement, MnToasterElement, MnTooltipElement } from './overlay';
 import {
   MnAlertElement,
@@ -27,6 +28,7 @@ export * from './simple';
 export * from './form';
 export * from './overlay';
 export * from './advanced';
+export * from './files';
 export { toast, createToaster, applyTheme, designStyles } from '../index';
 
 /** Inert marker elements consumed by their parents. */
@@ -61,6 +63,7 @@ export const elements = {
   'mn-calendar': MnCalendarElement,
   'mn-date-picker': MnDatePickerElement,
   'mn-data-table': MnDataTableElement,
+  'mn-file-upload': MnFileUploadElement,
 } as const;
 
 const markers = ['mn-tab', 'mn-tab-panel', 'mn-menu-item', 'mn-menu-label', 'mn-menu-separator', 'mn-column'];

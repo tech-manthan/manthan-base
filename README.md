@@ -103,11 +103,32 @@ Elements render into the light DOM (no shadow root), so the Tailwind theme and y
 | Group | Elements |
 | --- | --- |
 | Basics | `mn-button`, `mn-icon`, `mn-badge`, `mn-kbd`, `mn-card`, `mn-alert`, `mn-avatar`, `mn-progress`, `mn-spinner`, `mn-skeleton` |
-| Forms | `mn-field`, `mn-input`, `mn-textarea`, `mn-select`, `mn-checkbox`, `mn-switch`, `mn-slider`, `mn-combobox`, `mn-date-picker`, `mn-calendar` |
+| Forms | `mn-field`, `mn-input`, `mn-textarea`, `mn-select`, `mn-checkbox`, `mn-switch`, `mn-slider`, `mn-combobox`, `mn-date-picker`, `mn-calendar`, `mn-file-upload` |
 | Overlays | `mn-dialog`, `mn-popover`, `mn-menu` (+ `mn-menu-item`, `mn-menu-label`, `mn-menu-separator`), `mn-tooltip`, `mn-toaster`, `mn-command-dialog` |
 | Data | `mn-tabs` (+ `mn-tab`, `mn-tab-panel`), `mn-data-table` (+ `mn-column`, inline JSON or `el.rows = [...]`) |
 
 `showcase/elements.html` is a complete page written only in HTML.
+
+### Forms and file uploads
+
+```ts
+import { createForm, rules } from '@manthan/base';
+
+const form = createForm({
+  initialValues: { email: '', password: '', confirm: '' },
+  rules: {
+    email: [rules.required(), rules.email()],
+    password: [rules.required(), rules.minLength(8)],
+    confirm: rules.matches('password', 'Passwords do not match.'),
+  },
+  onSubmit: async (values) => save(values),
+});
+form.field('email'); // { value, error, invalid, onInput, onBlur }
+```
+
+Errors show after a field is left or the form is submitted, and visited fields then re-check as you type. Rules can be async. React (`useForm`), Vue (`useForm`), Svelte (`useForm`) and Angular (`injectForm`) wrap the same store. For plain HTML, `bindForm(formElement, { rules, onSubmit })` validates an existing `<form>` and shows errors in `<mn-field>`.
+
+`validateFiles`, `formatBytes` and `createDropzone` (drag and drop, click, keyboard, paste) drive the `FileUpload` component and `<mn-file-upload>`. The chosen files post with the form.
 
 ## How it is built: the best of each library
 

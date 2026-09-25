@@ -29,7 +29,7 @@
       </header>
 
       <div class="grid gap-6 lg:grid-cols-2">
-        <mn-card heading="Create account" description="A real &lt;form&gt;: submit it to see FormData.">
+        <mn-card heading="Create account" description="A real &lt;form&gt; validated with bindForm(): try submitting it empty.">
           <form id="signup" class="flex flex-col gap-4">
             <mn-field label="Email" description="We never share it." required>
               <mn-input name="email" type="email" placeholder="you@example.com" start-icon="mail"></mn-input>
@@ -40,7 +40,13 @@
                 <optgroup label="Islands"><option value="astro">Astro</option><option value="qwik">Qwik</option><option value="solid">SolidJS</option></optgroup>
               </mn-combobox>
             </mn-field>
+            <mn-field label="Password" description="At least 8 characters.">
+              <mn-input name="password" type="password"></mn-input>
+            </mn-field>
             <mn-field label="Start date"><mn-date-picker name="start"></mn-date-picker></mn-field>
+            <mn-field label="Portfolio (PDF or images, up to 3)">
+              <mn-file-upload name="portfolio" accept=".pdf,image/*" multiple max-files="3" max-size="5242880" hint="PDF, PNG or JPG up to 5 MB each"></mn-file-upload>
+            </mn-field>
             <mn-field label="Volume"><mn-slider name="volume" value="60"></mn-slider></mn-field>
             <div class="flex flex-wrap gap-x-6 gap-y-3">
               <mn-checkbox name="terms" value="yes" checked>I agree to the terms</mn-checkbox>

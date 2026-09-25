@@ -162,3 +162,35 @@ export const cellAlign = {
   center: 'text-center!',
   end: 'text-end! tabular-nums',
 } as const;
+
+export const fileUpload = slotRecipe({
+  slots: {
+    root: 'mn-file-upload flex w-full flex-col gap-3',
+    dropzone: [
+      'mn-dropzone relative flex cursor-pointer flex-col items-center justify-center gap-2 rounded-surface border-2 border-dashed border-control-border bg-surface-2 px-6 py-8 text-center',
+      transitionColors,
+      focusRing,
+      'hover:border-accent-8 hover:bg-accent-2',
+      'data-dragging:border-accent-9 data-dragging:bg-accent-3',
+      'aria-disabled:pointer-events-none aria-disabled:opacity-55',
+      'aria-invalid:tone-danger aria-invalid:border-accent-8',
+    ],
+    icon: 'mb-1 flex size-11 items-center justify-center rounded-full bg-accent-3 text-accent-11 [&_svg]:size-5',
+    title: 'text-sm font-medium text-fg',
+    hint: 'text-xs text-fg-muted',
+    list: 'flex flex-col gap-2',
+    item: 'flex items-center gap-3 rounded-control border-mn border-border bg-surface px-3 py-2.5 shadow-control',
+    itemIcon: 'flex size-9 shrink-0 items-center justify-center rounded-item bg-accent-3 text-accent-11 [&_svg]:size-4',
+    itemBody: 'flex min-w-0 flex-1 flex-col',
+    itemName: 'truncate text-sm font-medium',
+    itemMeta: 'text-xs text-fg-muted tabular-nums',
+    errors: 'tone-danger flex flex-col gap-1 text-xs font-medium text-accent-11',
+  },
+  variants: {
+    size: {
+      sm: { dropzone: 'px-4 py-5' },
+      md: {},
+    },
+  },
+  defaultVariants: { size: 'md' },
+});

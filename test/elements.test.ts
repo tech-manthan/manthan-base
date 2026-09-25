@@ -34,7 +34,7 @@ describe('custom elements', () => {
     const email = document.querySelector('mn-input input') as HTMLInputElement;
     const label = document.querySelector('mn-field label') as HTMLLabelElement;
     expect(label.htmlFor).toBe(email.id);
-    expect(email.getAttribute('aria-invalid')).toBe('');
+    expect(email.getAttribute('aria-invalid')).toBe('true');
     expect(email.getAttribute('aria-describedby')).toContain('error');
     expect((document.querySelector('mn-combobox input[role=combobox]') as HTMLInputElement).value).toBe('Vue');
     expect(document.querySelector('mn-switch input')!.getAttribute('role')).toBe('switch');

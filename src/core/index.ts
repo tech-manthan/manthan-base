@@ -10,3 +10,6 @@ export * from './calendar';
 export * from './options';
 export * from './hotkey';
 export * from './table';
+export * from './validation';
+export * from './form';
+export * from './files';

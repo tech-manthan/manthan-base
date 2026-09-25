@@ -50,7 +50,7 @@ export class MnFieldElement extends MnElement {
     const describedBy = [this.attr('description') && this.descriptionEl.id, this.attr('error') && this.errorEl.id].filter(Boolean).join(' ');
     if (describedBy) control.setAttribute('aria-describedby', describedBy);
     else control.removeAttribute('aria-describedby');
-    control.toggleAttribute('aria-invalid', !!this.attr('error'));
+    control.setAttribute('aria-invalid', String(!!this.attr('error')));
     if (this.flag('required')) control.setAttribute('required', '');
   }
 }
