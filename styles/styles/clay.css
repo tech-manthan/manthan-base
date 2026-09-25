@@ -56,3 +56,17 @@
     box-shadow: 3px 4px 8px var(--mn-clay-out), inset -2px -2px 4px oklch(0 0 0 / 0.1), inset 2px 2px 4px oklch(1 0 0 / 0.5);
   }
 }
+
+/* Charts */
+@layer base {
+  [data-mn-style='clay'] {
+    --mn-chart-radius: 8px;
+    --mn-chart-line-width: 3px;
+    --mn-chart-area-opacity: 0.16;
+  }
+}
+@layer utilities {
+  [data-mn-style='clay'] :is(.mn-chart-bar, .mn-chart-arc) {
+    filter: drop-shadow(0 4px 5px light-dark(oklch(0.3 0.05 var(--mn-gray-h) / 0.18), oklch(0 0 0 / 0.5)));
+  }
+}

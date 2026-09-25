@@ -47,3 +47,13 @@
     --mn-duration: 120ms;
   }
 }
+
+/* Charts */
+@layer base {
+  [data-mn-style='minimal'] {
+    --mn-chart-radius: 2px;
+    --mn-chart-line-width: 1.5px;
+    --mn-chart-area-opacity: 0.06;
+    --mn-chart-grid: var(--mn-base-3);
+  }
+}

@@ -93,3 +93,22 @@
     outline: 2px solid var(--mn-ink);
   }
 }
+
+/* Charts */
+@layer base {
+  [data-mn-style='brutal'] {
+    --mn-chart-radius: 0px;
+    --mn-chart-line-width: 3px;
+    --mn-chart-axis: var(--mn-ink);
+    --mn-chart-text: var(--mn-fg);
+    --mn-chart-grid: light-dark(oklch(0 0 0 / 0.12), oklch(1 0 0 / 0.14));
+  }
+}
+@layer utilities {
+  [data-mn-style='brutal'] :is(.mn-chart-bar, .mn-chart-arc) {
+    filter: drop-shadow(3px 3px 0 var(--mn-ink));
+  }
+  [data-mn-style='brutal'] .mn-chart-baseline {
+    stroke-width: 2;
+  }
+}

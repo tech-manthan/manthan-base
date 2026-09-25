@@ -95,3 +95,19 @@
     box-shadow: inset 3px 0 0 var(--mn-accent-9), 0 0 16px -6px var(--mn-accent-9);
   }
 }
+
+/* Charts */
+@layer base {
+  [data-mn-style='neon'] {
+    --mn-chart-area-opacity: 0.2;
+    --mn-chart-grid: oklch(0.6 0.2 310 / 0.16);
+    --mn-chart-axis: oklch(0.55 0.18 305 / 0.6);
+    --mn-chart-ring: oklch(0.13 0.035 285);
+    --mn-chart-hover: oklch(0.6 0.22 310 / 0.1);
+  }
+}
+@layer utilities {
+  [data-mn-style='neon'] :is(.mn-chart-line, .mn-chart-bar, .mn-chart-arc, .mn-chart-dot) {
+    filter: drop-shadow(0 0 4px var(--c));
+  }
+}

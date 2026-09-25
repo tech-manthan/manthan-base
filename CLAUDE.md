@@ -8,7 +8,7 @@ Clone all six repos side by side (`scripts/bootstrap.sh` clones, installs and bu
 
 ```
 manthan/
-  manthan-icons    134 SVG icons → ESM, sprite and JSON (scripts/build.mjs)
+  manthan-icons    139 SVG icons → ESM, sprite and JSON (scripts/build.mjs)
   manthan-base     tokens, styles, recipes, core, DOM controllers, <mn-*> elements
   manthan-react    React 19 (tsup, 'use client' banner, treeshake: false)
   manthan-vue      Vue 3.5 SFCs (vite lib build + vue-tsc)
@@ -32,7 +32,7 @@ manthan/
   - `data-mn-style` is one of `default glass neu brutal material fluent clay retro neon minimal skeuo`, and can be scoped per element.
 - `base.css` forces closed overlays (dialog, popover, menu, tooltip, listbox) to `display:none !important`. Without that, `flex` and `grid` utilities make them visible.
 - `src/recipes`: zero-dependency `recipe()` and `slotRecipe()` (in the style of cva/tailwind-variants), plus `cx`, `cn` and `configure({ merge })`.
-- `src/core`: framework-agnostic logic. Keyboard, position, pagination, toast store (`ToastStore`), calendar, options, hotkey, table, validation (`rules`, `runRules`), form store (`createForm`) and files.
+- `src/core`: framework-agnostic logic. Chart geometry (`buildChartScene`), keyboard, position, pagination, toast store (`ToastStore`), calendar, options, hotkey, table, validation (`rules`, `runRules`), form store (`createForm`) and files.
 - `src/dom`: `createX` controllers built on the native `<dialog>`, the Popover API and `@starting-style`, plus `autoInit`.
 - `src/elements`: light-DOM custom elements `<mn-*>`, exported as `@manthan/base/elements` and `/elements/define`. Two rules:
   - Use `setClass` so the author's classes are preserved.
@@ -41,24 +41,25 @@ manthan/
 
 ## Commands (in each repo)
 
-`npm run build`, `npm test`, `npm run typecheck` (or `check` in Svelte), and `npm run dev` for the showcase or playground.
+`npm run build`, `npm test`, `npm run typecheck`, and `npm run dev` for the showcase or playground.
 
 Test counts at hand-off:
 
 | Repo | Tests |
 |---|---|
 | icons | 5 |
-| base | 56 |
-| react | 18 |
-| vue | 16 |
-| svelte | 4 |
-| angular | 4 |
+| base | 73 |
+| react | 20 |
+| vue | 18 |
+| svelte | 5 |
+| angular | 5 |
 
 ## Conventions and gotchas
 
 - Always write `aria-invalid` as `"true"` or `"false"`. An empty value doesn't match Tailwind's `aria-invalid:` variant.
 - In the Vue Checkbox and Switch, `inheritAttrs: false` forwards attributes to the native input.
 - Svelte: put `aria-selected` on the grid cell and give the button `data-selected`.
+- Charts: every framework wraps the one `createChart` controller. Colours are CSS variables (`--mn-chart-N`, passed per mark as `--c`). Bar radius and gap are read from CSS once and re-read when `data-mn-style` changes.
 - `cellAlign` uses `!` so that header alignment wins over `text-start`.
 - A new component needs:
   1. a recipe in base
@@ -71,6 +72,5 @@ Test counts at hand-off:
 ## Roadmap / open decisions
 
 - Open PRs, or make `main` the default branch.
-- Charts that follow the active style.
 - A docs site.
 - An accessibility and bundle-size audit.

@@ -105,7 +105,7 @@ Elements render into the light DOM (no shadow root), so the Tailwind theme and y
 | Basics | `mn-button`, `mn-icon`, `mn-badge`, `mn-kbd`, `mn-card`, `mn-alert`, `mn-avatar`, `mn-progress`, `mn-spinner`, `mn-skeleton` |
 | Forms | `mn-field`, `mn-input`, `mn-textarea`, `mn-select`, `mn-checkbox`, `mn-switch`, `mn-slider`, `mn-combobox`, `mn-date-picker`, `mn-calendar`, `mn-file-upload` |
 | Overlays | `mn-dialog`, `mn-popover`, `mn-menu` (+ `mn-menu-item`, `mn-menu-label`, `mn-menu-separator`), `mn-tooltip`, `mn-toaster`, `mn-command-dialog` |
-| Data | `mn-tabs` (+ `mn-tab`, `mn-tab-panel`), `mn-data-table` (+ `mn-column`, inline JSON or `el.rows = [...]`) |
+| Data | `mn-tabs` (+ `mn-tab`, `mn-tab-panel`), `mn-data-table` (+ `mn-column`, inline JSON or `el.rows = [...]`), `mn-chart` (+ `mn-series`, inline JSON or `el.data = [...]`) |
 
 `showcase/elements.html` is a complete page written only in HTML.
 
@@ -129,6 +129,44 @@ form.field('email'); // { value, error, invalid, onInput, onBlur }
 Errors show after a field is left or the form is submitted, and visited fields then re-check as you type. Rules can be async. React (`useForm`), Vue (`useForm`), Svelte (`useForm`) and Angular (`injectForm`) wrap the same store. For plain HTML, `bindForm(formElement, { rules, onSubmit })` validates an existing `<form>` and shows errors in `<mn-field>`.
 
 `validateFiles`, `formatBytes` and `createDropzone` (drag and drop, click, keyboard, paste) drive the `FileUpload` component and `<mn-file-upload>`. The chosen files post with the form.
+
+### Charts
+
+```ts
+import { createChart } from '@manthan/base/dom';
+
+createChart(el, {
+  type: 'bar', // 'line' | 'area' | 'bar' | 'donut'
+  data: rows,
+  x: 'month',
+  series: [{ key: 'free', label: 'Free' }, { key: 'pro', label: 'Pro' }],
+  stacked: true,
+  title: 'Sign-ups by plan',
+});
+```
+
+```html
+<mn-chart type="line" x="month" label="Revenue">
+  <mn-series key="revenue" label="Revenue"></mn-series>
+  <script type="application/json">[{ "month": "Jan", "revenue": 31000 }]</script>
+</mn-chart>
+```
+
+Charts follow the active style:
+
+- Series colours come from `--mn-chart-1` … `--mn-chart-8`, a fixed palette checked for colour-vision deficiency in both light and dark mode.
+- Styles re-map line weight, bar radius, area opacity, gridlines and glow (`--mn-chart-*`). For example, neon glows, brutal draws hard offset shadows, and retro uses a pixel font.
+- Colour follows the series, not its position. Hiding a series keeps every other colour, and a ninth series falls back to "Other" rather than repeating a colour.
+
+Each chart includes:
+
+- a crosshair tooltip on line and area charts, and a per-category tooltip on bars and donut slices
+- arrow-key navigation with a live region that reads out values
+- a legend that toggles series
+- direct line labels, dropped when they would collide
+- a screen-reader data table
+
+`buildChartScene()` is the pure layout engine behind all of this, and runs on the server too. `stat()` styles stat tiles (label, value, delta coloured by whether the change is good, sparkline). Every framework package wraps the same controller as `Chart` and `Stat`.
 
 ## How it is built: the best of each library
 
@@ -195,7 +233,7 @@ Create your own style:
 
 Button, ButtonGroup, Badge, Avatar(+Group), Card, Kbd, Separator, Heading, Text, Link, Table, Input(+Group), Textarea, Select, Field, Checkbox, Radio(+Group), Switch, Slider, Tabs, Accordion, Breadcrumb, Pagination, Alert, Progress, ProgressCircle, Spinner, Skeleton, Dialog / Drawer, Popover, Tooltip, Menu, Toast.
 
-**Advanced:** Combobox (filtering, groups, `aria-activedescendant`), Command palette (`⌘K`), Calendar (WAI-ARIA date grid, locale-aware week start, min/max/disabled dates), Date picker, Toggle group (single / multiple, roving focus), DataTable (sort, multi-term search, row selection, pagination; headless helpers `getTableView`, `sortRows`, `searchRows`, `paginateRows`, `toggleAll`). Dates are plain ISO strings (`YYYY-MM-DD`).
+**Advanced:** Combobox (filtering, groups, `aria-activedescendant`), Command palette (`⌘K`), Calendar (WAI-ARIA date grid, locale-aware week start, min/max/disabled dates), Date picker, Toggle group (single / multiple, roving focus), DataTable (sort, multi-term search, row selection, pagination; headless helpers `getTableView`, `sortRows`, `searchRows`, `paginateRows`, `toggleAll`), Charts (line, area, bar, donut, sparkline) and Stat tiles. Dates are plain ISO strings (`YYYY-MM-DD`).
 
 ```ts
 import { button, card } from '@manthan/base';

@@ -16,3 +16,4 @@ export * from './date-picker';
 export * from './data-table';
 export * from './dropzone';
 export * from './form';
+export * from './chart';

@@ -55,3 +55,10 @@
     color: var(--mn-fg);
   }
 }
+
+/* Charts */
+@layer base {
+  [data-mn-style='fluent'] {
+    --mn-chart-radius: 2px;
+  }
+}

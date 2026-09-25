@@ -8,6 +8,7 @@
  */
 import { MnComboboxElement, MnCommandDialogElement, MnCalendarElement, MnDataTableElement, MnDatePickerElement, MnTabsElement } from './advanced';
 import { MnCheckboxElement, MnFieldElement, MnInputElement, MnSelectElement, MnSliderElement, MnSwitchElement, MnTextareaElement } from './form';
+import { MnChartElement } from './chart';
 import { MnFileUploadElement } from './files';
 import { MnDialogElement, MnMenuElement, MnPopoverElement, MnToasterElement, MnTooltipElement } from './overlay';
 import {
@@ -29,6 +30,7 @@ export * from './form';
 export * from './overlay';
 export * from './advanced';
 export * from './files';
+export * from './chart';
 export { toast, createToaster, applyTheme, designStyles } from '../index';
 
 /** Inert marker elements consumed by their parents. */
@@ -64,9 +66,10 @@ export const elements = {
   'mn-date-picker': MnDatePickerElement,
   'mn-data-table': MnDataTableElement,
   'mn-file-upload': MnFileUploadElement,
+  'mn-chart': MnChartElement,
 } as const;
 
-const markers = ['mn-tab', 'mn-tab-panel', 'mn-menu-item', 'mn-menu-label', 'mn-menu-separator', 'mn-column'];
+const markers = ['mn-tab', 'mn-tab-panel', 'mn-menu-item', 'mn-menu-label', 'mn-menu-separator', 'mn-column', 'mn-series'];
 
 let openerInstalled = false;
 

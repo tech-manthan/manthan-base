@@ -72,3 +72,16 @@
     box-shadow: var(--mn-inset-shadow);
   }
 }
+
+/* Charts */
+@layer base {
+  [data-mn-style='skeuo'] {
+    --mn-chart-radius: 5px;
+    --mn-chart-area-opacity: 0.15;
+  }
+}
+@layer utilities {
+  [data-mn-style='skeuo'] :is(.mn-chart-bar, .mn-chart-arc) {
+    filter: drop-shadow(0 1px 1.5px oklch(0 0 0 / 0.3));
+  }
+}

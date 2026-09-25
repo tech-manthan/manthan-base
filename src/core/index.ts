@@ -13,3 +13,4 @@ export * from './table';
 export * from './validation';
 export * from './form';
 export * from './files';
+export * from './chart';

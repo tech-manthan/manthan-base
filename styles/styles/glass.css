@@ -66,3 +66,13 @@
     border-color: var(--mn-surface-border);
   }
 }
+
+/* Charts */
+@layer base {
+  [data-mn-style='glass'] {
+    --mn-chart-radius: 6px;
+    --mn-chart-area-opacity: 0.18;
+    --mn-chart-grid: light-dark(oklch(0.2 0.02 var(--mn-gray-h) / 0.1), oklch(1 0 0 / 0.1));
+    --mn-chart-ring: light-dark(oklch(0.99 0.005 var(--mn-gray-h)), oklch(0.24 0.02 var(--mn-gray-h)));
+  }
+}

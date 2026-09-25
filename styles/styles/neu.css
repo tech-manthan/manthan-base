@@ -59,3 +59,18 @@
     box-shadow: var(--mn-inset-shadow);
   }
 }
+
+/* Charts */
+@layer base {
+  [data-mn-style='neu'] {
+    --mn-chart-radius: 6px;
+    --mn-chart-line-width: 2.5px;
+    --mn-chart-area-opacity: 0.14;
+    --mn-chart-ring: var(--mn-bg);
+  }
+}
+@layer utilities {
+  [data-mn-style='neu'] :is(.mn-chart-bar, .mn-chart-arc) {
+    filter: drop-shadow(2px 2px 3px light-dark(oklch(0 0 0 / 0.14), oklch(0 0 0 / 0.5)));
+  }
+}

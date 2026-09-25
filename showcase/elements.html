@@ -105,6 +105,17 @@
           ]
         </script>
       </mn-data-table>
+
+      <h2 class="mn-heading-type text-xl">Chart</h2>
+      <mn-card>
+        <mn-chart type="bar" x="quarter" label="Deployments per quarter" stacked>
+          <mn-series key="web" label="Web"></mn-series>
+          <mn-series key="api" label="API"></mn-series>
+          <script type="application/json">
+            [{ "quarter": "Q1", "web": 42, "api": 28 }, { "quarter": "Q2", "web": 51, "api": 33 }, { "quarter": "Q3", "web": 47, "api": 41 }, { "quarter": "Q4", "web": 63, "api": 45 }]
+          </script>
+        </mn-chart>
+      </mn-card>
     </main>
 
     <mn-dialog id="confirm" heading="Delete project?" description="This permanently deletes the project and its 42 deployments.">

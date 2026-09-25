@@ -50,8 +50,10 @@ import {
   todayISO,
   addDays,
   toggleGroup,
+  chart,
+  stat,
 } from '../src/index';
-import { autoInit, createDataTable, mountToaster } from '../src/dom/index';
+import { autoInit, createChart, createDataTable, createToggleGroup, mountToaster, type ChartControllerOptions } from '../src/dom/index';
 
 const tones: Tone[] = ['primary', 'neutral', 'success', 'info', 'warning', 'danger'];
 const icon = (node: IconNode, cls = '', strokeWidth: number | string = 2) => toSvg(node, { class: cls, strokeWidth });
@@ -125,7 +127,7 @@ function header() {
       </div>
     </div>
     <nav aria-label="Sections" class="mx-auto flex max-w-7xl gap-1 overflow-x-auto px-4 pb-2 text-sm sm:px-6">
-      ${['styles', 'buttons', 'forms', 'data-display', 'overlays', 'feedback', 'navigation', 'advanced']
+      ${['styles', 'buttons', 'forms', 'data-display', 'overlays', 'feedback', 'navigation', 'advanced', 'charts']
         .map((id) => `<a href="#${id}" class="${button({ variant: 'ghost', size: 'xs', tone: 'neutral' })}">${id.replace('-', ' ')}</a>`)
         .join('')}
     </nav>
@@ -642,10 +644,59 @@ function advanced() {
   );
 }
 
+
+// ── Charts: every mark reads --mn-chart-* tokens, so switch the style above ──
+
+const statTiles: Array<{ label: string; value: string; delta: string; sentiment: 'positive' | 'negative'; up: boolean; trend: number[] }> = [
+  { label: 'Revenue', value: '$48.2K', delta: '+12.4%', sentiment: 'positive', up: true, trend: [31, 33, 32, 36, 35, 38, 41, 40, 43, 44, 46, 48] },
+  { label: 'Active users', value: '12,940', delta: '+3.1%', sentiment: 'positive', up: true, trend: [11.2, 11.6, 11.4, 11.9, 12.1, 12.0, 12.3, 12.5, 12.4, 12.7, 12.8, 12.9] },
+  { label: 'Churn rate', value: '2.4%', delta: '−0.6 pts', sentiment: 'positive', up: false, trend: [3.4, 3.3, 3.2, 3.2, 3.0, 2.9, 2.9, 2.8, 2.7, 2.6, 2.5, 2.4] },
+  { label: 'Avg. response', value: '284 ms', delta: '+18 ms', sentiment: 'negative', up: true, trend: [240, 238, 251, 249, 255, 262, 258, 266, 270, 268, 279, 284] },
+];
+
+function charts() {
+  const tiles = statTiles
+    .map((t, i) => {
+      const st = stat({ sentiment: t.sentiment });
+      return `<div class="${card({ size: 'sm' }).root()}"><div class="${st.root()}">
+        <span class="${st.label()}">${t.label}</span>
+        <span class="${st.value()}">${t.value}</span>
+        <span class="${st.footer()}"><span class="${st.delta()}">${icon(t.up ? I.ArrowUpRight : I.ArrowDownRight)}${t.delta}</span> vs last month</span>
+        <div id="spark-${i}" class="${st.trend()}"></div>
+      </div></div>`;
+    })
+    .join('');
+  const s = toggleGroup({ variant: 'segmented' });
+  const range = `<div id="chart-range" aria-label="Date range" class="${s.root()}">${[
+    ['6', 'Last 6 months'],
+    ['12', 'Last 12 months', true],
+  ]
+    .map(([v, label, pressed]) => `<button type="button" data-value="${v}" aria-pressed="${!!pressed}" class="${s.item()}">${label}</button>`)
+    .join('')}</div>`;
+  const chartCard = (id: string, title: string, sub: string) => {
+    const c = card({ size: 'sm' });
+    return `<div class="${c.root('min-w-0')}"><div class="flex flex-col gap-0.5"><h3 class="mn-heading-type text-base">${title}</h3><p class="text-sm text-fg-muted">${sub}</p></div><div id="${id}"></div></div>`;
+  };
+  return section(
+    'charts',
+    'Charts',
+    'Line, area, bar and donut charts plus stat tiles. Series colours come from a fixed, colour-blind-checked palette, and line weight, bar radius, glow and fonts come from the active style. Hover or focus a chart and use the arrow keys, or click a legend item to hide that series.',
+    `<div class="flex flex-wrap items-center gap-3">${range}</div>
+    <div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">${tiles}</div>
+    <div class="grid gap-4 lg:grid-cols-3">
+      <div class="lg:col-span-2">${chartCard('chart-revenue', 'Revenue vs costs', 'Monthly, in USD')}</div>
+      ${chartCard('chart-traffic', 'Traffic sources', 'Share of sessions')}
+      <div class="lg:col-span-2">${chartCard('chart-signups', 'Sign-ups by plan', 'New accounts per month')}</div>
+      ${chartCard('chart-countries', 'Top countries', 'Active users')}
+      <div class="lg:col-span-3">${chartCard('chart-latency', 'API latency', 'p50, p95 and p99 in ms')}</div>
+    </div>`,
+  );
+}
+
 // ── Mount ───────────────────────────────────────────────────────────────
 
 const app = document.getElementById('app')!;
-app.innerHTML = `${header()}<main class="mx-auto flex max-w-7xl flex-col gap-16 px-4 pb-24 sm:px-6">${hero()}${styleGallery()}${buttons()}${forms()}${dataDisplay()}${overlays()}${feedback()}${navigation()}${advanced()}</main>
+app.innerHTML = `${header()}<main class="mx-auto flex max-w-7xl flex-col gap-16 px-4 pb-24 sm:px-6">${hero()}${styleGallery()}${buttons()}${forms()}${dataDisplay()}${overlays()}${feedback()}${navigation()}${advanced()}${charts()}</main>
   <footer class="border-t-mn border-border py-8 text-center text-sm text-fg-muted">Manthan UI · MIT · Built with Tailwind CSS v4</footer>`;
 
 document.querySelectorAll<HTMLInputElement>('input[data-indeterminate]').forEach((el) => (el.indeterminate = true));
@@ -762,4 +813,67 @@ createDataTable(document.getElementById('invoices')!, {
     { key: 'issued', header: 'Issued', format: (v) => new Date(`${v}T12:00`).toLocaleDateString('en-US', { dateStyle: 'medium' }) },
     { key: 'amount', header: 'Amount', align: 'end', format: (v) => money.format(v as number) },
   ],
+});
+
+// Charts demo
+const months = ['Oct', 'Nov', 'Dec', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'];
+const finance = months.map((month, i) => ({
+  month,
+  revenue: Math.round(31000 + i * 1500 + Math.sin(i * 1.3) * 2400),
+  costs: Math.round(24000 + i * 600 + Math.cos(i * 0.9) * 1800),
+}));
+const signups = months.map((month, i) => ({
+  month,
+  free: Math.round(820 + i * 34 + Math.sin(i) * 90),
+  pro: Math.round(310 + i * 22 + Math.cos(i * 1.7) * 40),
+  team: Math.round(96 + i * 9 + Math.sin(i * 0.7) * 18),
+}));
+const latency = Array.from({ length: 48 }, (_, i) => {
+  const wave = Math.sin(i / 5) * 12 + (i > 30 && i < 36 ? 60 : 0);
+  return { t: `${String(Math.floor(i / 2)).padStart(2, '0')}:${i % 2 ? '30' : '00'}`, p50: Math.round(118 + wave * 0.4), p95: Math.round(212 + wave), p99: Math.round(305 + wave * 1.8) };
+});
+const usd = (v: number) => money.format(v).replace(/\.00$/, '');
+const usdCompact = (v: number) => `$${new Intl.NumberFormat('en-US', { notation: 'compact', maximumFractionDigits: 1 }).format(v)}`;
+
+const chartOf = <T,>(id: string, spec: ChartControllerOptions<T>) => createChart<T>(document.getElementById(id)!, spec);
+const revenueChart = chartOf('chart-revenue', {
+  type: 'area', data: finance, x: 'month', title: 'Revenue vs costs', height: 260,
+  series: [{ key: 'revenue', label: 'Revenue' }, { key: 'costs', label: 'Costs' }],
+  yFormat: usdCompact, valueFormat: usd,
+});
+const signupChart = chartOf('chart-signups', {
+  type: 'bar', stacked: true, data: signups, x: 'month', title: 'Sign-ups by plan', height: 260,
+  series: [{ key: 'free', label: 'Free' }, { key: 'pro', label: 'Pro' }, { key: 'team', label: 'Team' }],
+});
+chartOf('chart-traffic', {
+  type: 'donut', x: 'source', title: 'Traffic sources', height: 220, centerLabel: 'sessions',
+  data: [{ source: 'Organic', v: 48200 }, { source: 'Direct', v: 23100 }, { source: 'Referral', v: 12800 }, { source: 'Social', v: 9400 }, { source: 'Email', v: 5100 }],
+  series: [{ key: 'v', label: 'Sessions' }],
+  valueFormat: (v) => new Intl.NumberFormat('en-US', { notation: 'compact', maximumFractionDigits: 1 }).format(v),
+});
+chartOf('chart-countries', {
+  type: 'bar', horizontal: true, x: 'country', title: 'Top countries', height: 220,
+  data: [{ country: 'United States', v: 4210 }, { country: 'India', v: 3180 }, { country: 'Germany', v: 1720 }, { country: 'Brazil', v: 1340 }, { country: 'Japan', v: 980 }],
+  series: [{ key: 'v', label: 'Active users', color: 'accent' }],
+});
+chartOf('chart-latency', {
+  type: 'line', data: latency, x: 't', title: 'API latency', height: 240, curve: 'linear',
+  series: [{ key: 'p50', label: 'p50' }, { key: 'p95', label: 'p95' }, { key: 'p99', label: 'p99' }],
+  valueFormat: (v) => `${v} ms`, yFormat: (v) => `${v}`,
+});
+statTiles.forEach((t, i) =>
+  chartOf(`spark-${i}`, {
+    type: 'area', sparkline: true, height: 40, title: `${t.label} trend`, x: 'i',
+    data: t.trend.map((v, j) => ({ i: months[j], v })),
+    series: [{ key: 'v', label: t.label, color: 'accent' }],
+  }),
+);
+// Filters scope everything below them: one range drives both monthly charts.
+createToggleGroup(document.getElementById('chart-range')!, {
+  deselectable: false,
+  onChange: ([value]) => {
+    const n = Number(value) || 12;
+    revenueChart.update({ data: finance.slice(-n) });
+    signupChart.update({ data: signups.slice(-n) });
+  },
 });

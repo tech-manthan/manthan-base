@@ -135,6 +135,26 @@
     --mn-heading-tracking: -0.02em;
     --mn-heading-transform: none;
 
+    --mn-chart-1: light-dark(#2a78d6, #3987e5);
+    --mn-chart-2: light-dark(#eb6834, #d95926);
+    --mn-chart-3: light-dark(#1baf7a, #199e70);
+    --mn-chart-4: light-dark(#eda100, #c98500);
+    --mn-chart-5: light-dark(#e87ba4, #d55181);
+    --mn-chart-6: light-dark(#008300, #008300);
+    --mn-chart-7: light-dark(#4a3aa7, #9085e9);
+    --mn-chart-8: light-dark(#e34948, #e66767);
+    --mn-chart-other: var(--mn-base-8);
+    --mn-chart-grid: var(--mn-base-4);
+    --mn-chart-axis: var(--mn-base-7);
+    --mn-chart-text: var(--mn-fg-muted);
+    --mn-chart-font: var(--mn-font-sans);
+    --mn-chart-line-width: 2px;
+    --mn-chart-radius: 4px;
+    --mn-chart-gap: 2px;
+    --mn-chart-area-opacity: 0.1;
+    --mn-chart-ring: var(--mn-surface);
+    --mn-chart-hover: light-dark(oklch(0.2 0.02 var(--mn-gray-h) / 0.05), oklch(1 0 0 / 0.06));
+
     --mn-duration: 160ms;
     --mn-ease: cubic-bezier(0.2, 0, 0, 1);
   }

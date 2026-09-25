@@ -129,3 +129,90 @@
     block-size: auto;
   }
 }
+
+/* ── Charts: SVG marks read the style's chart tokens; `--c` is the series colour. ── */
+@layer components {
+  .mn-chart svg text {
+    font-family: var(--mn-chart-font);
+    font-size: 11px;
+    fill: var(--mn-chart-text);
+    font-variant-numeric: tabular-nums;
+  }
+  .mn-chart-grid {
+    stroke: var(--mn-chart-grid);
+    stroke-width: 1;
+    shape-rendering: crispEdges;
+  }
+  .mn-chart-baseline,
+  .mn-chart-crosshair {
+    stroke: var(--mn-chart-axis);
+    stroke-width: 1;
+    shape-rendering: crispEdges;
+  }
+  .mn-chart-line {
+    fill: none;
+    stroke: var(--c);
+    stroke-width: var(--mn-chart-line-width);
+    stroke-linejoin: round;
+    stroke-linecap: round;
+  }
+  .mn-chart-area {
+    fill: var(--c);
+    fill-opacity: var(--mn-chart-area-opacity);
+  }
+  .mn-chart-bar,
+  .mn-chart-arc {
+    fill: var(--c);
+    transition: opacity var(--mn-duration) var(--mn-ease);
+  }
+  .mn-chart-dot {
+    fill: var(--c);
+    stroke: var(--mn-chart-ring);
+    stroke-width: 2;
+    paint-order: stroke;
+  }
+  .mn-chart-band {
+    fill: var(--mn-chart-hover);
+  }
+  /* The hovered mark stays, its neighbours step back. */
+  .mn-chart[data-active] :is(.mn-chart-bar, .mn-chart-arc):not([data-active]) {
+    opacity: 0.45;
+  }
+  .mn-chart [data-series-hidden] {
+    display: none;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .mn-chart[data-animate] .mn-chart-bar {
+      transform-box: fill-box;
+      transform-origin: bottom;
+      transition: scale 480ms var(--mn-ease), opacity var(--mn-duration) var(--mn-ease);
+      @starting-style {
+        scale: 1 0;
+      }
+    }
+    .mn-chart[data-animate][data-horizontal] .mn-chart-bar {
+      transform-origin: left;
+      @starting-style {
+        scale: 0 1;
+      }
+    }
+    .mn-chart[data-animate] :is(.mn-chart-line, .mn-chart-area, .mn-chart-arc) {
+      transition: opacity 480ms var(--mn-ease);
+      @starting-style {
+        opacity: 0;
+      }
+    }
+  }
+  @media (forced-colors: active) {
+    .mn-chart-line {
+      stroke: CanvasText;
+    }
+    .mn-chart-bar,
+    .mn-chart-arc,
+    .mn-chart-dot {
+      fill: CanvasText;
+      stroke: Canvas;
+      stroke-width: 1;
+    }
+  }
+}
