@@ -43,7 +43,7 @@ describe('advanced dom controllers', () => {
     const root = document.getElementById('c')!;
     const onChange = vi.fn();
     createCalendar(root, { value: '2026-09-25', weekStartsOn: 1, locale: 'en-US', max: '2026-10-10', onChange });
-    expect(root.querySelector('[aria-selected="true"]')!.textContent).toBe('25');
+    expect(root.querySelector('td[aria-selected="true"] button')!.textContent).toBe('25');
     expect(root.querySelectorAll('button[data-date]')).toHaveLength(42);
     const focused = root.querySelector<HTMLButtonElement>('button[tabindex="0"]')!;
     key(focused, 'ArrowDown');

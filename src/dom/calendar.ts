@@ -106,7 +106,10 @@ export function createCalendar(root: HTMLElement, options: CalendarControllerOpt
           btn.dataset.today = '';
           btn.setAttribute('aria-current', 'date');
         }
-        if (day.date === value) btn.setAttribute('aria-selected', 'true');
+        if (day.date === value) {
+          btn.dataset.selected = '';
+          cell.setAttribute('aria-selected', 'true');
+        }
         btn.disabled = isDateDisabled(day.date, constraints);
         cell.append(btn);
       }
