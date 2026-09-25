@@ -1,7 +1,12 @@
 import { tooltip as tooltipRecipe } from '../recipes/overlay';
 import { valueToPercent } from '../core/range';
 import type { Placement } from '../core/position';
+import { createCalendar } from './calendar';
+import { createCombobox } from './combobox';
+import { createDatePicker } from './date-picker';
 import { createDialog, type DialogController } from './dialog';
+import { onHotkey } from './hotkey';
+import { createToggleGroup } from './toggle-group';
 import { createMenu } from './menu';
 import { createPopover } from './popover';
 import { createTabs } from './tabs';
@@ -30,6 +35,10 @@ export function syncSliderFill(input: HTMLInputElement): Cleanup {
  *   <button data-mn-dialog-open="d1">…</button> <dialog id="d1" class="mn-dialog">… <button data-mn-dialog-close>
  *   <div role="tablist" data-mn-tabs>…</div>
  *   <input type="range" class="mn-slider">
+ *   <input data-mn-combobox aria-controls="list"> <div id="list">…[role=option][data-value]…</div>
+ *   <div data-mn-toggle-group="single|multiple">…button[data-value]…</div>
+ *   <div data-mn-calendar data-value="2026-09-25"></div>  <button data-mn-datepicker data-name="due"></button>
+ *   <div data-mn-command>…input + [role=listbox]…</div>  <button data-mn-dialog-open="cmd" data-mn-hotkey="mod+k">
  */
 export function autoInit(root: ParentNode = document): Cleanup {
   const cleanups: Cleanup[] = [];
@@ -83,6 +92,69 @@ export function autoInit(root: ParentNode = document): Cleanup {
   });
 
   root.querySelectorAll<HTMLInputElement>('input.mn-slider').forEach((input) => cleanups.push(syncSliderFill(input)));
+
+  root.querySelectorAll<HTMLElement>('[data-mn-hotkey]').forEach((el) => {
+    cleanups.push(onHotkey(el.dataset.mnHotkey!, () => el.click()));
+  });
+
+  root.querySelectorAll<HTMLInputElement>('input[data-mn-combobox]').forEach((input) => {
+    const listbox = byId(input.getAttribute('aria-controls') ?? input.dataset.mnCombobox ?? null);
+    if (!listbox) return;
+    const controller = createCombobox({
+      input,
+      listbox,
+      anchor: input.closest<HTMLElement>('.mn-combobox') ?? input,
+      filter: true,
+      openOnFocus: input.dataset.mnOpenOnFocus !== undefined,
+      onSelect: (value, option) => {
+        listbox.querySelectorAll('[aria-selected="true"]').forEach((el) => el.setAttribute('aria-selected', 'false'));
+        option.setAttribute('aria-selected', 'true');
+        input.value = option.dataset.label ?? option.textContent?.trim() ?? value;
+        input.dataset.value = value;
+        input.dispatchEvent(new Event('change', { bubbles: true }));
+      },
+    });
+    cleanups.push(controller.destroy);
+  });
+
+  root.querySelectorAll<HTMLElement>('[data-mn-command]').forEach((el) => {
+    const input = el.querySelector<HTMLInputElement>('input');
+    const listbox = el.querySelector<HTMLElement>('[role="listbox"]');
+    if (!input || !listbox) return;
+    const controller = createCombobox({
+      input,
+      listbox,
+      inline: true,
+      filter: true,
+      onSelect: (value) => el.dispatchEvent(new CustomEvent('mn-select', { detail: value, bubbles: true })),
+    });
+    cleanups.push(controller.destroy);
+  });
+
+  root.querySelectorAll<HTMLElement>('[data-mn-toggle-group]').forEach((el) => {
+    const type = el.dataset.mnToggleGroup === 'multiple' ? 'multiple' : 'single';
+    cleanups.push(createToggleGroup(el, { type }));
+  });
+
+  root.querySelectorAll<HTMLElement>('[data-mn-calendar]').forEach((el) => {
+    cleanups.push(
+      createCalendar(el, { value: el.dataset.value || null, min: el.dataset.min, max: el.dataset.max, locale: el.dataset.locale }).destroy,
+    );
+  });
+
+  root.querySelectorAll<HTMLButtonElement>('button[data-mn-datepicker]').forEach((trigger) => {
+    cleanups.push(
+      createDatePicker({
+        trigger,
+        name: trigger.dataset.name,
+        value: trigger.dataset.value || null,
+        placeholder: trigger.dataset.placeholder,
+        min: trigger.dataset.min,
+        max: trigger.dataset.max,
+        locale: trigger.dataset.locale,
+      }),
+    );
+  });
 
   return () => cleanups.forEach((c) => c());
 }

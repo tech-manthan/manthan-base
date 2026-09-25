@@ -43,7 +43,7 @@
    * transition-discrete exit animations keep working.
    */
   .mn-dialog:not([open]),
-  :is(.mn-popover, .mn-menu, .mn-tooltip)[popover]:not(:popover-open) {
+  :is(.mn-popover, .mn-menu, .mn-tooltip, .mn-listbox)[popover]:not(:popover-open) {
     display: none !important;
   }
 

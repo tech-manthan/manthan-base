@@ -10,7 +10,7 @@ body {
 }
 
 /* Let grid/flex children shrink so wide demos scroll inside their own containers at phone width. */
-main :is(.grid, .flex) > * {
+main :is(.grid, .flex) > :not([popover]) {
   min-width: 0;
 }
 main [role='tablist'] {

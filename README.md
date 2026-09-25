@@ -67,7 +67,8 @@ Use the recipes to produce classes, and `@manthan/base/dom` to add behaviour to 
 import { autoInit, mountToaster } from '@manthan/base/dom';
 import { toast } from '@manthan/base';
 
-autoInit(); // wires [data-mn-menu], [data-mn-popover], [data-mn-tooltip], dialogs, tabs, sliders
+autoInit(); // wires menus, popovers, tooltips, dialogs, tabs, sliders, comboboxes, command palettes,
+            // calendars, date pickers, toggle groups and [data-mn-hotkey] shortcuts
 mountToaster();
 toast.success('Saved');
 ```
@@ -84,6 +85,8 @@ toast.success('Saved');
 | Lean on the platform: `<dialog>`, Popover API, `<details name>`, native inputs, `appearance: base-select` | Open UI, Pico CSS | focus traps, top layer, light-dismiss and form support for free |
 | CSS-only enter/exit animations | `@starting-style` + `transition-behavior` | `floatingMotion`, dialog recipe |
 | Toast store with `promise()`, pause-on-hover, stable snapshots | Sonner, react-hot-toast | `src/core/toast.ts` |
+| Command palette + ranked fuzzy-ish filtering | cmdk, Raycast | `src/core/options.ts`, `src/dom/combobox.ts` |
+| Calendar on plain ISO dates + Intl | React Aria `@internationalized/date`, Ark DatePicker | `src/core/calendar.ts` |
 | Roving focus, typeahead, WAI-ARIA keyboard maps | React Aria, Radix | `src/core/keyboard.ts` |
 | Flip / shift positioning | Floating UI | `src/core/position.ts` |
 | Design tokens as CSS variables mapped into the framework | Open Props, daisyUI, HeroUI | `@theme inline` in `styles/theme.css` |
@@ -133,6 +136,8 @@ Create your own style:
 ## Components
 
 Button, ButtonGroup, Badge, Avatar(+Group), Card, Kbd, Separator, Heading, Text, Link, Table, Input(+Group), Textarea, Select, Field, Checkbox, Radio(+Group), Switch, Slider, Tabs, Accordion, Breadcrumb, Pagination, Alert, Progress, ProgressCircle, Spinner, Skeleton, Dialog / Drawer, Popover, Tooltip, Menu, Toast.
+
+**Advanced:** Combobox (filtering, groups, `aria-activedescendant`), Command palette (`⌘K`), Calendar (WAI-ARIA date grid, locale-aware week start, min/max/disabled dates), Date picker, Toggle group (single / multiple, roving focus). Dates are plain ISO strings (`YYYY-MM-DD`).
 
 ```ts
 import { button, card } from '@manthan/base';

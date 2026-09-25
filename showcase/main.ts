@@ -42,6 +42,14 @@ import {
   type DesignStyle,
   type ThemeMode,
   type Tone,
+  calendar,
+  combobox,
+  command,
+  commandDialog,
+  formatHotkey,
+  todayISO,
+  addDays,
+  toggleGroup,
 } from '../src/index';
 import { autoInit, mountToaster } from '../src/dom/index';
 
@@ -117,7 +125,7 @@ function header() {
       </div>
     </div>
     <nav aria-label="Sections" class="mx-auto flex max-w-7xl gap-1 overflow-x-auto px-4 pb-2 text-sm sm:px-6">
-      ${['styles', 'buttons', 'forms', 'data-display', 'overlays', 'feedback', 'navigation']
+      ${['styles', 'buttons', 'forms', 'data-display', 'overlays', 'feedback', 'navigation', 'advanced']
         .map((id) => `<a href="#${id}" class="${button({ variant: 'ghost', size: 'xs', tone: 'neutral' })}">${id.replace('-', ' ')}</a>`)
         .join('')}
     </nav>
@@ -521,10 +529,121 @@ function navigation() {
   );
 }
 
+
+// ── Advanced: combobox, command palette, calendar, date picker, toggle groups ──
+
+function advanced() {
+  const f = field();
+  const cb = combobox();
+  const frameworks: Array<[string, string, string]> = [
+    ['Frontend', 'react', 'React'],
+    ['Frontend', 'vue', 'Vue'],
+    ['Frontend', 'svelte', 'Svelte'],
+    ['Frontend', 'angular', 'Angular'],
+    ['Frontend', 'solid', 'SolidJS'],
+    ['Frontend', 'qwik', 'Qwik'],
+    ['Meta-frameworks', 'next', 'Next.js'],
+    ['Meta-frameworks', 'nuxt', 'Nuxt'],
+    ['Meta-frameworks', 'sveltekit', 'SvelteKit'],
+    ['Meta-frameworks', 'astro', 'Astro'],
+    ['Server-rendered', 'htmx', 'htmx'],
+    ['Server-rendered', 'rails', 'Ruby on Rails'],
+    ['Server-rendered', 'django', 'Django'],
+    ['Server-rendered', 'laravel', 'Laravel'],
+  ];
+  const groups = [...new Set(frameworks.map(([g]) => g))];
+  const comboboxHtml = `<div class="${f.root()}"><label class="${f.label()}" for="fw-combobox">Framework</label>
+    <div class="${cb.root()}">
+      <input id="fw-combobox" data-mn-combobox data-mn-open-on-focus aria-controls="fw-list" placeholder="Search 14 frameworks…" class="${input({ withEnd: true })}" />
+      <span class="${cb.trigger('pointer-events-none')}" aria-hidden="true">${icon(I.ChevronsUpDown)}</span>
+    </div>
+    <div id="fw-list" popover="manual" class="${cb.listbox()}">
+      ${groups
+        .map(
+          (g, gi) => `<div role="group" aria-labelledby="fw-g${gi}" class="${cb.group()}"><div id="fw-g${gi}" class="${cb.groupLabel()}">${g}</div>
+          ${frameworks
+            .filter(([fg]) => fg === g)
+            .map(([, v, l]) => `<div role="option" data-value="${v}" aria-selected="false" class="${cb.option()}">${l}${icon(I.Check, cb.check())}</div>`)
+            .join('')}</div>`,
+        )
+        .join('')}
+      <div data-empty hidden class="${cb.empty()}">No framework found.</div>
+    </div>
+    <p class="${f.description()}">Type to filter; ↑ ↓ to move, Enter to choose. Accent-insensitive ranking.</p></div>`;
+
+  const cmd = command();
+  const commands: Array<[string, string, IconNode, string, string?]> = [
+    ['Suggestions', 'calendar', I.Calendar, 'Open calendar'],
+    ['Suggestions', 'search', I.Search, 'Search docs', 'mod+/'],
+    ['Suggestions', 'theme', I.Contrast, 'Toggle dark mode', 'mod+j'],
+    ['Settings', 'profile', I.User, 'Profile', 'mod+p'],
+    ['Settings', 'billing', I.CreditCard, 'Billing', 'mod+b'],
+    ['Settings', 'settings', I.Settings, 'Settings', 'mod+,'],
+    ['Styles', 'style-glass', I.Droplet, 'Switch to Glassmorphism'],
+    ['Styles', 'style-brutal', I.Square, 'Switch to Neo-brutalism'],
+    ['Styles', 'style-neon', I.Zap, 'Switch to Neon'],
+  ];
+  const cmdGroups = [...new Set(commands.map(([g]) => g))];
+  const palette = `<dialog id="cmdk" class="${commandDialog()}" aria-label="Command palette">
+    <div data-mn-command class="${cmd.root()}">
+      <div class="${cmd.inputWrap()}">${icon(I.Search)}<input class="${cmd.input()}" placeholder="Type a command or search…" aria-label="Command" autofocus /></div>
+      <div role="listbox" class="${cmd.list()}">
+        ${cmdGroups
+          .map(
+            (g, gi) => `<div role="group" aria-labelledby="cmd-g${gi}"><div id="cmd-g${gi}" class="${cmd.groupLabel()}">${g}</div>
+            ${commands
+              .filter(([cg]) => cg === g)
+              .map(([, v, n, l, k]) => `<div role="option" data-value="${v}" class="${cmd.item()}">${icon(n)}${l}${k ? `<span class="${cmd.shortcut()}">${formatHotkey(k)}</span>` : ''}</div>`)
+              .join('')}</div>`,
+          )
+          .join('')}
+        <div data-empty hidden class="${cmd.empty()}">No results found.</div>
+      </div>
+      <div class="${cmd.footer()}"><span><kbd class="${kbd()}">↑</kbd> <kbd class="${kbd()}">↓</kbd> navigate</span><span><kbd class="${kbd()}">↵</kbd> select</span><span><kbd class="${kbd()}">esc</kbd> close</span></div>
+    </div>
+  </dialog>`;
+
+  const tg = (variant: 'segmented' | 'outline' | 'ghost', type: 'single' | 'multiple', items: Array<[string, string | IconNode, boolean?]>, label: string) => {
+    const s = toggleGroup({ variant });
+    return `<div data-mn-toggle-group="${type}" aria-label="${label}" class="${s.root()}">${items
+      .map(
+        ([v, content, pressed]) =>
+          `<button type="button" data-value="${v}" aria-pressed="${!!pressed}" class="${s.item()}" ${typeof content === 'string' ? '' : `aria-label="${v}"`}>${typeof content === 'string' ? content : icon(content)}</button>`,
+      )
+      .join('')}</div>`;
+  };
+  const toggles = `<div class="flex flex-col items-start gap-4">
+    ${tg('segmented', 'single', [['day', 'Day'], ['week', 'Week', true], ['month', 'Month'], ['year', 'Year']], 'Range')}
+    ${tg('outline', 'multiple', [['bold', I.Bold, true], ['italic', I.Italic], ['underline', I.Underline], ['strikethrough', I.Strikethrough]], 'Text formatting')}
+    ${tg('ghost', 'single', [['left', I.AlignLeft, true], ['center', I.AlignCenter], ['right', I.AlignRight], ['justify', I.AlignJustify]], 'Alignment')}
+  </div>`;
+
+  const today = todayISO();
+  const dates = `<div class="flex flex-wrap items-start gap-6">
+      <div data-mn-calendar data-value="${addDays(today, 3)}" data-min="${addDays(today, -30)}" data-max="${addDays(today, 90)}" class="${calendar().root()}"></div>
+      <div class="flex min-w-56 flex-1 flex-col gap-4">
+        <div class="${f.root()}"><label class="${f.label()}">Due date</label><button data-mn-datepicker data-name="due" data-placeholder="Pick a due date" data-min="${today}"></button><p class="${f.description()}">Past dates are disabled.</p></div>
+        <div class="${f.root()}"><label class="${f.label()}">Start date</label><button data-mn-datepicker data-name="start" data-value="${today}"></button></div>
+      </div>
+    </div>`;
+
+  return section(
+    'advanced',
+    'Advanced',
+    'Combobox, command palette, calendar, date picker and toggle groups. Dates are plain ISO strings, week starts and names follow the locale, and every widget follows the WAI-ARIA keyboard pattern.',
+    `${palette}<div class="grid gap-4 lg:grid-cols-2">
+      ${panel('Combobox', comboboxHtml)}
+      ${panel('Command palette', `<div class="flex flex-col items-start gap-3"><button class="${button({ variant: 'surface', tone: 'neutral', class: 'w-full max-w-xs justify-between' })}" data-mn-dialog-open="cmdk" data-mn-hotkey="mod+k"><span class="flex items-center gap-2">${icon(I.Search)} Search…</span><kbd class="${kbd()}">${formatHotkey('mod+k')}</kbd></button><p class="text-sm text-fg-muted">Press ${formatHotkey('mod+k')} anywhere on this page.</p></div>`)}
+      ${panel('Calendar & date picker', dates)}
+      ${panel('Toggle groups', toggles)}
+    </div>`,
+  );
+}
+
 // ── Mount ───────────────────────────────────────────────────────────────
 
 const app = document.getElementById('app')!;
-app.innerHTML = `${header()}<main class="mx-auto flex max-w-7xl flex-col gap-16 px-4 pb-24 sm:px-6">${hero()}${styleGallery()}${buttons()}${forms()}${dataDisplay()}${overlays()}${feedback()}${navigation()}</main>
+app.innerHTML = `${header()}<main class="mx-auto flex max-w-7xl flex-col gap-16 px-4 pb-24 sm:px-6">${hero()}${styleGallery()}${buttons()}${forms()}${dataDisplay()}${overlays()}${feedback()}${navigation()}${advanced()}</main>
   <footer class="border-t-mn border-border py-8 text-center text-sm text-fg-muted">Manthan UI · MIT · Built with Tailwind CSS v4</footer>`;
 
 document.querySelectorAll<HTMLInputElement>('input[data-indeterminate]').forEach((el) => (el.indeterminate = true));
@@ -600,4 +719,19 @@ document.addEventListener('click', (event) => {
     const [title, description] = titles[kind]!;
     toast.show({ title, description, tone: kind as Tone });
   }
+});
+
+// Command palette actions
+const palette = document.getElementById('cmdk') as HTMLDialogElement;
+palette.addEventListener('mn-select', (event) => {
+  const value = (event as CustomEvent<string>).detail;
+  palette.close();
+  if (value.startsWith('style-')) setStyle(value.slice(6) as DesignStyle);
+  else if (value === 'theme') setMode(root.dataset.mnTheme === 'dark' ? 'light' : 'dark');
+  else toast.info({ title: 'Command', description: value });
+});
+palette.addEventListener('close', () => {
+  const input = palette.querySelector('input')!;
+  input.value = '';
+  input.dispatchEvent(new Event('input'));
 });

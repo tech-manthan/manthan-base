@@ -6,3 +6,6 @@ export * from './position';
 export * from './pagination';
 export * from './range';
 export * from './toast';
+export * from './calendar';
+export * from './options';
+export * from './hotkey';
