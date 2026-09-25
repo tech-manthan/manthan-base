@@ -1,0 +1,48 @@
+name: CI
+
+on:
+  push:
+    branches: [claude/great-turing-ihfjsd]
+  pull_request:
+    branches: [claude/great-turing-ihfjsd]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout manthan-icons
+        uses: actions/checkout@v4
+        with:
+          repository: tech-manthan/manthan-icons
+          path: manthan-icons
+
+      - name: Checkout manthan-base
+        uses: actions/checkout@v4
+        with:
+          path: manthan-base
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Build manthan-icons
+        working-directory: manthan-icons
+        run: |
+          npm ci
+          npm run build
+
+      - name: Install manthan-base
+        working-directory: manthan-base
+        run: npm ci
+
+      - name: Build
+        working-directory: manthan-base
+        run: npm run build
+
+      - name: Test
+        working-directory: manthan-base
+        run: npm test
+
+      - name: Typecheck
+        working-directory: manthan-base
+        run: npm run typecheck
