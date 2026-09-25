@@ -71,3 +71,40 @@ describe('advanced dom controllers', () => {
     expect(document.activeElement).toBe(i);
   });
 });
+
+import { createDataTable } from '../src/dom/index';
+
+describe('data table controller', () => {
+  it('sorts, searches, selects and pages', () => {
+    document.body.innerHTML = `<div id="t"></div>`;
+    const root = document.getElementById('t')!;
+    const rows = Array.from({ length: 12 }, (_, i) => ({ id: String(i + 1), name: `User ${i + 1}`, score: (i * 7) % 10 }));
+    const onSelectionChange = vi.fn();
+    createDataTable(root, {
+      rows,
+      columns: [
+        { key: 'name', header: 'Name' },
+        { key: 'score', header: 'Score', align: 'end', searchable: false },
+      ],
+      pageSize: 5,
+      selectable: true,
+      onSelectionChange,
+    });
+    const bodyRows = () => Array.from(root.querySelectorAll('tbody tr'));
+    expect(bodyRows()).toHaveLength(5);
+    expect(root.textContent).toContain('1–5 of 12');
+
+    (root.querySelector('th[aria-sort] button') as HTMLButtonElement).click();
+    expect(root.querySelector('th[aria-sort="ascending"]')).not.toBeNull();
+
+    const search = root.querySelector('input[type=search]') as HTMLInputElement;
+    search.value = 'user 1';
+    search.dispatchEvent(new Event('input'));
+    expect(bodyRows().length).toBe(4); // User 1, 10, 11, 12
+
+    (root.querySelector('thead input[type=checkbox]') as HTMLInputElement).click();
+    expect(onSelectionChange).toHaveBeenLastCalledWith(['1', '10', '11', '12']);
+    expect(root.textContent).toContain('4 of 12 selected');
+    expect(bodyRows().every((tr) => tr.getAttribute('aria-selected') === 'true')).toBe(true);
+  });
+});

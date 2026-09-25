@@ -86,6 +86,7 @@ toast.success('Saved');
 | CSS-only enter/exit animations | `@starting-style` + `transition-behavior` | `floatingMotion`, dialog recipe |
 | Toast store with `promise()`, pause-on-hover, stable snapshots | Sonner, react-hot-toast | `src/core/toast.ts` |
 | Command palette + ranked fuzzy-ish filtering | cmdk, Raycast | `src/core/options.ts`, `src/dom/combobox.ts` |
+| Headless table maths (sort / search / paginate / select) | TanStack Table | `src/core/table.ts` |
 | Calendar on plain ISO dates + Intl | React Aria `@internationalized/date`, Ark DatePicker | `src/core/calendar.ts` |
 | Roving focus, typeahead, WAI-ARIA keyboard maps | React Aria, Radix | `src/core/keyboard.ts` |
 | Flip / shift positioning | Floating UI | `src/core/position.ts` |
@@ -137,7 +138,7 @@ Create your own style:
 
 Button, ButtonGroup, Badge, Avatar(+Group), Card, Kbd, Separator, Heading, Text, Link, Table, Input(+Group), Textarea, Select, Field, Checkbox, Radio(+Group), Switch, Slider, Tabs, Accordion, Breadcrumb, Pagination, Alert, Progress, ProgressCircle, Spinner, Skeleton, Dialog / Drawer, Popover, Tooltip, Menu, Toast.
 
-**Advanced:** Combobox (filtering, groups, `aria-activedescendant`), Command palette (`⌘K`), Calendar (WAI-ARIA date grid, locale-aware week start, min/max/disabled dates), Date picker, Toggle group (single / multiple, roving focus). Dates are plain ISO strings (`YYYY-MM-DD`).
+**Advanced:** Combobox (filtering, groups, `aria-activedescendant`), Command palette (`⌘K`), Calendar (WAI-ARIA date grid, locale-aware week start, min/max/disabled dates), Date picker, Toggle group (single / multiple, roving focus), DataTable (sort, multi-term search, row selection, pagination; headless helpers `getTableView`, `sortRows`, `searchRows`, `paginateRows`, `toggleAll`). Dates are plain ISO strings (`YYYY-MM-DD`).
 
 ```ts
 import { button, card } from '@manthan/base';

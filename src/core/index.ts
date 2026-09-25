@@ -9,3 +9,4 @@ export * from './toast';
 export * from './calendar';
 export * from './options';
 export * from './hotkey';
+export * from './table';

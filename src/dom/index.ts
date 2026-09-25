@@ -13,3 +13,4 @@ export * from './calendar';
 export * from './toggle-group';
 export * from './hotkey';
 export * from './date-picker';
+export * from './data-table';

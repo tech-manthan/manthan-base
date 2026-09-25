@@ -141,3 +141,24 @@ export const datePicker = slotRecipe({
   },
   defaultVariants: { size: 'md' },
 });
+
+export const dataTable = slotRecipe({
+  slots: {
+    root: 'mn-data-table flex min-w-0 flex-col gap-3',
+    toolbar: 'flex flex-wrap items-center justify-between gap-3',
+    search: 'w-full sm:max-w-xs',
+    summary: 'text-sm text-fg-muted tabular-nums',
+    sortButton: `group/sort -mx-1.5 inline-flex cursor-pointer items-center gap-1 rounded-item px-1.5 py-1 uppercase tracking-wide ${transitionColors} ${focusRing} hover:text-fg`,
+    sortIcon: 'size-3.5 shrink-0 opacity-40 group-hover/sort:opacity-80 data-active:text-accent-11 data-active:opacity-100',
+    selectCell: 'w-10 pe-0',
+    empty: 'py-10 text-center text-sm text-fg-muted',
+    footer: 'flex flex-wrap items-center justify-between gap-3 text-sm text-fg-muted',
+  },
+});
+
+/** Text alignment for table cells. `end` also aligns digits. */
+export const cellAlign = {
+  start: '',
+  center: 'text-center!',
+  end: 'text-end! tabular-nums',
+} as const;

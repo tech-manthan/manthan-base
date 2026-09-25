@@ -51,7 +51,7 @@ import {
   addDays,
   toggleGroup,
 } from '../src/index';
-import { autoInit, mountToaster } from '../src/dom/index';
+import { autoInit, createDataTable, mountToaster } from '../src/dom/index';
 
 const tones: Tone[] = ['primary', 'neutral', 'success', 'info', 'warning', 'danger'];
 const icon = (node: IconNode, cls = '', strokeWidth: number | string = 2) => toSvg(node, { class: cls, strokeWidth });
@@ -636,7 +636,8 @@ function advanced() {
       ${panel('Command palette', `<div class="flex flex-col items-start gap-3"><button class="${button({ variant: 'surface', tone: 'neutral', class: 'w-full max-w-xs justify-between' })}" data-mn-dialog-open="cmdk" data-mn-hotkey="mod+k"><span class="flex items-center gap-2">${icon(I.Search)} Search…</span><kbd class="${kbd()}">${formatHotkey('mod+k')}</kbd></button><p class="text-sm text-fg-muted">Press ${formatHotkey('mod+k')} anywhere on this page.</p></div>`)}
       ${panel('Calendar & date picker', dates)}
       ${panel('Toggle groups', toggles)}
-    </div>`,
+    </div>
+    ${panel('Data table: sort, search, select, paginate', '<div id="invoices"></div>')}`,
   );
 }
 
@@ -734,4 +735,30 @@ palette.addEventListener('close', () => {
   const input = palette.querySelector('input')!;
   input.value = '';
   input.dispatchEvent(new Event('input'));
+});
+
+// Data table demo
+const customers = ['Ada Lovelace', 'Alan Turing', 'Grace Hopper', 'Linus Torvalds', 'Margaret Hamilton', 'Dennis Ritchie', 'Barbara Liskov', 'Ken Thompson', 'Radia Perlman', 'Tim Berners-Lee', 'Frances Allen', 'Donald Knuth'];
+const statuses = ['Paid', 'Pending', 'Overdue', 'Refunded'];
+const invoices = Array.from({ length: 36 }, (_, i) => ({
+  id: `INV-${String(1042 + i)}`,
+  customer: customers[(i * 5) % customers.length]!,
+  status: statuses[(i * 7 + (i >> 2)) % 4]!,
+  amount: Math.round(((i * 7919) % 4800) + 120 + ((i * 37) % 100) / 100) ,
+  issued: addDays(todayISO(), -((i * 3) % 90)),
+}));
+const money = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' });
+createDataTable(document.getElementById('invoices')!, {
+  rows: invoices,
+  getRowId: (row) => row.id,
+  selectable: true,
+  pageSize: 8,
+  caption: 'Invoices issued in the last 90 days',
+  columns: [
+    { key: 'id', header: 'Invoice', width: '8rem' },
+    { key: 'customer', header: 'Customer' },
+    { key: 'status', header: 'Status' },
+    { key: 'issued', header: 'Issued', format: (v) => new Date(`${v}T12:00`).toLocaleDateString('en-US', { dateStyle: 'medium' }) },
+    { key: 'amount', header: 'Amount', align: 'end', format: (v) => money.format(v as number) },
+  ],
 });
