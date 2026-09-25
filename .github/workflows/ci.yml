@@ -2,9 +2,9 @@ name: CI
 
 on:
   push:
-    branches: [claude/great-turing-ihfjsd]
+    branches: [main]
   pull_request:
-    branches: [claude/great-turing-ihfjsd]
+    branches: [main]
 
 jobs:
   build:
